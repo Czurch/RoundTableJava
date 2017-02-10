@@ -34,7 +34,7 @@ public class Enemy {
 	    }
 	    
 	    public int attackMove(Enemy target){
-	    	int damage = attack + coreMath.rollDie();
+	    	int damage = attack + coreMath.rollD6();
 	    	return damage;
 	    }
 	    
@@ -49,7 +49,7 @@ public class Enemy {
 	    }
 	    
 	    public void rollInit(){
-	    	initiative = coreMath.rollDie() + initMod;
+	    	initiative = coreMath.rollD6() + initMod;
 	    }
 }
 

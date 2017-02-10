@@ -1,17 +1,30 @@
 package mechanics;
-
+import  java.util.Scanner;
 
 public class Player {
+	//Used to determine the profession of the player
+    public enum profession{
+    	alchemist,
+    	barbarian,
+    	drunkard,
+    	knight,
+    	priest,
+    	ranger,
+    	rogue,
+    	scribe,
+    	civilian
+    }
 	
 	 	//Base stats for player
-		String name;
-	    private int health 
+		protected String name;
+		protected profession job;
+	    protected int health 
 	    ,maxHealth
 	    ,attack
 	    ,defence
 	    ,initiative
 	    ,initMod;
-	    boolean alive
+	    protected boolean alive
 	    ,isDefending;
 	    
 	    //Skill Checks
@@ -19,6 +32,7 @@ public class Player {
 
 	    public Player(){
 	    	name = "Placeholder";
+	    	job = profession.civilian;
 	    	health = 8;
 	    	maxHealth = 8;
 	    	attack = 0;
@@ -31,6 +45,7 @@ public class Player {
 	    
 	    public Player(String nam, int HP, int ATK, int DEF, int INIT){
 	    	name = nam;
+	    	job = profession.civilian;
 	    	health = HP;
 	    	maxHealth = HP;
 	    	attack = ATK;
@@ -39,24 +54,79 @@ public class Player {
 	    	initMod = INIT;
 	    	alive = true;
 	    	isDefending = false;
-	    }	
+	    }
 	    
-	    public int attackMove(Enemy target){
-	    	int damage = attack + coreMath.rollDie();
-	    	return damage;
+	    
+	    //Prints the summary of a players stats
+	    public void statSum(){
+	    	System.out.println("-------------------------------------\n" +
+	    					   " NAME: " + this.name + "\n" +
+	    					   " JOB:  " + this.job.toString() + "\n" +
+	    					   " HEALTH:  "+ this.health + "/ " + this.maxHealth + "\n" +
+	    					   " ATK:  " + this.attack + "\n" +
+	    					   " DEF:  " + this.defence + "\n" +
+	    					   " INIT: " + this.initMod + "\n" +
+	    					   "--------------------------------------");
 	    }
 	    
 	   //Causes player to lose health on attack
 	    public void takeDamage(int nmeATK){
 	        int damage = (nmeATK - defence);
 	        if(damage > 0)										
-	        	health -= damage;
-	        if(health <= 0)
-	        	health -= damage;					//if the damage would kill, set alive to false
-	        	alive = false;
+	        	this.health -= damage;
+	        if(this.health <= 0)
+	        	this.health -= damage;					//if the damage would kill, set alive to false
+	        this.alive = false;
+	    }
+	    
+	    public void heal(int amount){
+	    	this.health += amount;
 	    }
 	    
 	    public void rollInit(){
-	    	initiative = coreMath.rollDie() + initMod;
+	    	this.initiative = coreMath.rollD6() + this.initMod;
+	    }
+	    
+	    //this determines what happens on a player's turn
+	    public void turn(Enemy target){
+	    	Scanner scanner = new Scanner( System.in );
+	    	// print("use and item? y / n")
+	        // if yes
+	        // print("select item")
+	        //     get selection
+	        //     use item
+	        // else
+	        boolean noChoice = true;
+            while(noChoice){
+            	System.out.println("attack or defend? ");				// get selection
+            	String choice = scanner.nextLine();
+                if (choice.toLowerCase() == "attack"){				// if attack Attack()
+                	this.Attack(target);
+                    noChoice = false;
+                }else if (choice.toLowerCase() == "defend"){		// if defend Defend()
+                	this.Defend();
+                    noChoice = false;
+                }else{
+                    noChoice = true;
+                }
+            }
+            scanner.close();
+	    }
+	    
+	    public void Attack(Enemy target){
+	    	int hit = this.attack + coreMath.rollD6();
+	    	this.isDefending = false;
+	    	System.out.println("You strike for "+ hit + "damage.");
+	    	target.takeDamage(hit);
+	    	
+	    }
+	    
+	    public void Defend(){
+	    	this.isDefending = true;
+	    }
+	    
+	    //Get methods 
+	    public String getName(){
+	    	return this.name;
 	    }
 }
