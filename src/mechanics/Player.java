@@ -100,33 +100,38 @@ public class Player {
             while(noChoice){
             	System.out.println("attack or defend? ");				// get selection
             	String choice = scanner.nextLine();
-                if (choice.toLowerCase() == "attack"){				// if attack Attack()
+                if (choice.toLowerCase().equals("attack")){				// if attack Attack()
                 	this.Attack(target);
+                	System.out.println("choice1");
                     noChoice = false;
-                }else if (choice.toLowerCase() == "defend"){		// if defend Defend()
+                }else if (choice.toLowerCase().equals("defend")){		// if defend Defend()
                 	this.Defend();
+                	System.out.println("choice2");
                     noChoice = false;
                 }else{
+                	System.out.println("nochoice");
                     noChoice = true;
                 }
             }
             scanner.close();
 	    }
 	    
+	    //Attacks target entity
 	    public void Attack(Enemy target){
 	    	int hit = this.attack + coreMath.rollD6();
 	    	this.isDefending = false;
-	    	System.out.println("You strike for "+ hit + "damage.");
+	    	System.out.println("You strike for "+ hit + " damage.");
 	    	target.takeDamage(hit);
 	    	
 	    }
 	    
+	    //sets defend value to true
 	    public void Defend(){
 	    	this.isDefending = true;
 	    }
 	    
 	    //Get methods 
 	    public String getName(){
-	    	return this.name;
+	    	return this.name; 
 	    }
 }

@@ -11,6 +11,11 @@ public class DungeonCrawler {
 	public DungeonCrawler(){
 		Player player = createPlayer();
 		player.statSum();
+		
+		Enemy jimbob = new Enemy();
+		jimbob.randomizeHitPoints();
+		
+		Fight f = new Fight(player, jimbob);
 	}
 	
 	//The Character creation method
@@ -53,5 +58,6 @@ public class DungeonCrawler {
 		}
 		return player;
 	}
+	
 
 }
