@@ -32,6 +32,6 @@ public class Scribe extends Player{
 	public void Attack(Enemy target){
 		int elementalDmg = coreMath.randomNumberBetween(1, maxElementDmg); 	//Scribe gets elemental damage on attacks
 		int damage = coreMath.rollD6() + elementalDmg;
-		target.takeDamage(damage);;
+		target.takeDamage(this, damage);
 	}
 }

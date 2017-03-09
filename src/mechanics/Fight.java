@@ -17,12 +17,12 @@ public class Fight {
 		this.p.rollInit();
 		this.e.rollInit();
 		System.out.println("Your initiative roll was " + p.initiative);
-		System.out.println("Enemy initiative roll was " + e.initiative);
+		System.out.println(e.name + " initiative roll was " + e.initiative);
 		
 		if(p.initiative >= e.initiative){
 			System.out.println("You will go first!");
 		}else{
-			System.out.println("The enemy will act first!");
+			System.out.println(e.name + " will act first!");
 		}
 	}
 	

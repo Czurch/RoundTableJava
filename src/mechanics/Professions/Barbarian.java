@@ -30,9 +30,11 @@ public class Barbarian extends Player{
         int roll_1 = coreMath.rollD6();
         int roll_2 = coreMath.rollD6();
         if(roll_1 == roll_2){
-            e.takeDamage(roll_1 + roll_2);
+        	System.out.println("BARBARIAN SMASH deals " + (roll_1 + roll_2) + " damage.");
+            e.takeDamage(this, (roll_1 + roll_2));
         }else{
-            e.takeDamage(roll_1);
+        	System.out.println("You deal " + roll_1 + " damage.");
+            e.takeDamage(this, roll_1);
         }
     }
 }

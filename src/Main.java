@@ -1,3 +1,4 @@
+import GameModes.DungeonCrawler;
 import mechanics.*;
 
 public class Main {
@@ -5,6 +6,7 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		DungeonCrawler game = new DungeonCrawler();
+		System.out.println("End");
 	}
 
 }
