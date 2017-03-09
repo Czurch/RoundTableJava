@@ -1,7 +1,9 @@
 package mechanics;
 import  java.util.Scanner;
 
-public class Player {
+import mechanics.Items.Weapon;
+
+public class Player extends Character{
 	//Used to determine the profession of the player
     public enum profession{
     	alchemist,
@@ -11,54 +13,48 @@ public class Player {
     	priest,
     	ranger,
     	rogue,
-    	scribe,
-    	civilian
+    	scribe
     }
 	
 	 	//Base stats for player
-		protected String name;
 		protected profession job;
-	    protected int health 
-	    ,maxHealth
-	    ,attack
-	    ,defence
-	    ,initiative
-	    ,initMod;
-	    protected boolean alive
-	    ,isDefending;
+	    protected boolean isDefending;
 	    
 	    //Skill Checks
 	    //to be added soon
 
 	    public Player(){
 	    	name = "Placeholder";
-	    	job = profession.civilian;
+	    	job = profession.knight;
 	    	health = 8;
 	    	maxHealth = 8;
 	    	attack = 0;
 	    	defence = 0;
+	    	armor = 0;
 	    	initiative = 0;
 	    	initMod = 0;
 	    	alive = true;
 	    	isDefending = false;
 	    }
 	    
-	    public Player(String nam, int HP, int ATK, int DEF, int INIT){
+	    public Player(String nam, int HP, int ATK, int DEF, int ARMR, int INIT, Weapon startWeapon){
 	    	name = nam;
-	    	job = profession.civilian;
+	    	job = profession.knight;
 	    	health = HP;
 	    	maxHealth = HP;
 	    	attack = ATK;
 	    	defence = DEF;
+	    	armor = ARMR;
 	    	initiative = 0;
 	    	initMod = INIT;
 	    	alive = true;
 	    	isDefending = false;
+	    	weaponEquipped = startWeapon;
 	    }
-	    
+	   
 	    
 	    //Prints the summary of a players stats
-	    public void statSum(){
+	    public void statSumm(){
 	    	System.out.println("-------------------------------------\n" +
 	    					   " NAME: " + this.name + "\n" +
 	    					   " JOB:  " + this.job.toString() + "\n" +
@@ -70,21 +66,31 @@ public class Player {
 	    }
 	    
 	   //Causes player to lose health on attack
-	    public void takeDamage(int nmeATK){
-	        int damage = (nmeATK - defence);
-	        if(damage > 0)										
+	    @Override
+	    public void takeDamage(Character e, int nmeATK){
+	    	int damage = nmeATK;
+	        if(this.isDefending)					//if player is defending
+	        {
+	        	int defRoll = coreMath.rollD20() + this.defence;
+	        	if(defRoll >= 20){
+	        		System.out.println("You deflect the enemy's attack back at him");
+	        		e.takeDamage(this, nmeATK);
+	        	}else if(defRoll > 10+nmeATK){
+	        		System.out.println("You manage to block all of the enemy's damage");
+	        	}else{
+	        		damage = nmeATK - this.defence;
+	        		System.out.println("You were unable to block the damage and lose " + damage + " health.");
+	        	}
+	        }
+	        else if(damage > 0){								//if [damage > 0] deal damage to health. 						
 	        	this.health -= damage;
-	        if(this.health <= 0)
-	        	this.health -= damage;					//if the damage would kill, set alive to false
-	        this.alive = false;
-	    }
-	    
-	    public void heal(int amount){
-	    	this.health += amount;
-	    }
-	    
-	    public void rollInit(){
-	    	this.initiative = coreMath.rollD6() + this.initMod;
+	        	System.out.println("You lose " + damage + " health.");
+	        }
+	        if(this.health <= 0){
+	        	this.health -= damage;					//if the damage would kill, set alive to false.
+	        	this.alive = false;
+	        	System.out.println("RIP. You have died.");
+	        }
 	    }
 	    
 	    //this determines what happens on a player's turn
@@ -100,33 +106,31 @@ public class Player {
             while(noChoice){
             	System.out.println("attack or defend? ");				// get selection
             	String choice = scanner.nextLine();
-                if (choice.toLowerCase() == "attack"){				// if attack Attack()
+                if (choice.toLowerCase().equals("attack")){				// if attack Attack()
                 	this.Attack(target);
                     noChoice = false;
-                }else if (choice.toLowerCase() == "defend"){		// if defend Defend()
+                }else if (choice.toLowerCase().equals("defend")){		// if defend Defend()
                 	this.Defend();
                     noChoice = false;
                 }else{
+                	System.out.println("nochoice");
                     noChoice = true;
                 }
             }
-            scanner.close();
 	    }
 	    
+	    //Attacks target entity
 	    public void Attack(Enemy target){
-	    	int hit = this.attack + coreMath.rollD6();
+	    	int hit = this.weaponEquipped.active();
 	    	this.isDefending = false;
-	    	System.out.println("You strike for "+ hit + "damage.");
-	    	target.takeDamage(hit);
+	    	System.out.println("You strike for "+ hit + " damage with your " + this.weaponEquipped.name);
+	    	target.takeDamage(this, hit);
+	    }
+	    
+	    //sets defend value to true
+	    public void Defend(){
+	    	this.isDefending = true;
 	    	
 	    }
 	    
-	    public void Defend(){
-	    	this.isDefending = true;
-	    }
-	    
-	    //Get methods 
-	    public String getName(){
-	    	return this.name;
-	    }
 }

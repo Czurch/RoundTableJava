@@ -1,55 +1,44 @@
 package mechanics;
 
-public class Enemy {
-	//Base stats for player
-		String name;
-	    private int health 
-	    ,maxHealth
-	    ,attack
-	    ,defence
-	    ,initiative
-	    ,initMod;
-	    boolean alive;
-		    
+import mechanics.Items.Weapon;
+
+public class Enemy extends Character{
+		
+		//determines difficulty of the enemy
+		int difficulty;
+		
 	    public Enemy(){
-	    	name = "Placeholder";
+	    	name = "Generic Enemy";
 	    	health = 8;
 	    	maxHealth = 8;
 	    	attack = 0;
 	    	defence = 0;
+	    	armor = 0;
 	    	initiative = 0;
 	    	initMod = 0;
 	    	alive = true;
+	    	difficulty = 1;
 	    }
 	    
-	    public Enemy(String nam, int HP, int ATK, int DEF, int INIT){
+	    public Enemy(String nam, int HP, int ATK, int DEF, int ARMR, int INIT, Weapon weapon){
 	    	name = nam;
 	    	health = HP;
 	    	maxHealth = HP;
 	    	attack = ATK;
 	    	defence = DEF;
+	    	armor = ARMR;
 	    	initiative = 0;
 	    	initMod = INIT;
 	    	alive = true;
+	    	difficulty = 1;
+	    	weaponEquipped = weapon;
 	    }
 	    
-	    public int attackMove(Enemy target){
-	    	int damage = attack + coreMath.rollD6();
-	    	return damage;
-	    }
-	    
-		   //Causes enemy to lose health on attack
-	    public void takeDamage(int nmeATK){
-	        int damage = (nmeATK - defence);
-	        if(damage > 0)										
-	        	health -= damage;
-	        if(health <= 0)
-	        	health -= damage;					//if the damage would kill, set alive to false
-	        	alive = false;
-	    }
-	    
-	    public void rollInit(){
-	    	initiative = coreMath.rollD6() + initMod;
+	    //Randomizes the base value of hitpoints
+	    public void randomizeHitPoints(){
+	    	int hp = coreMath.randomNumberBetween(4, 12);
+	    	health = hp;
+	    	maxHealth = hp;	
 	    }
 }
 

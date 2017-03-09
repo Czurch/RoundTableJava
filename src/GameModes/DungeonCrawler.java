@@ -1,5 +1,7 @@
+package GameModes;
 import java.util.Scanner;
 import mechanics.*;
+import mechanics.Location.terrain;
 import mechanics.Player.profession;
 import mechanics.Professions.*;
 
@@ -9,8 +11,17 @@ public class DungeonCrawler {
 	int totalEncounters = 0;
 	
 	public DungeonCrawler(){
-		Player player = createPlayer();
-		player.statSum();
+		Player player = createPlayer();				//create Player
+		player.statSumm();							//show a summary of their stats
+		EnemyList catalog = new EnemyList();		//load the catalog
+		
+		while(player.isAlive()){					//continue fighting while player lives
+			totalEncounters++;
+			Enemy jimbob = catalog.randomByLocation(terrain.plains);				//Create new enemy
+			jimbob.randomizeHitPoints();
+			Fight f = new Fight(player, jimbob);	//Fight the enemy
+			player.statSumm();
+		}
 	}
 	
 	//The Character creation method
@@ -20,7 +31,7 @@ public class DungeonCrawler {
 		String name = keyboard.nextLine();
 		System.out.println("What class would you like to play?");			//Select your class
 		String choice = keyboard.nextLine();
-		choice.toLowerCase();
+		choice = choice.toLowerCase();
 		profession p = profession.valueOf(choice);
 		switch(p){
 		case alchemist:
@@ -53,5 +64,6 @@ public class DungeonCrawler {
 		}
 		return player;
 	}
+	
 
 }
