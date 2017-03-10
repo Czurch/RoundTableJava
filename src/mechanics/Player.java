@@ -2,6 +2,7 @@ package mechanics;
 import  java.util.Scanner;
 
 import mechanics.Items.Weapon;
+import mechanics.Items.Weapon.combat_options;
 
 public class Player extends Character{
 	//Used to determine the profession of the player
@@ -117,6 +118,43 @@ public class Player extends Character{
                     noChoice = true;
                 }
             }
+	    }
+	    
+	    //FUNTION:  combatChoice
+	    //Determines the players choice of action during a combat turn
+	    @Override
+	    public void combatChoice(){
+	    	Scanner scanner = new Scanner( System.in );
+	    	System.out.println("How will you attack?");
+	    	
+	    	String choice = scanner.nextLine();
+	    	
+	    	switch(choice.toLowerCase())
+	    	{
+		    	case "lunge":
+		    	case "l":
+		    		combat_choice = combat_options.lunge;
+		    	break;
+		    	case "slash":
+		    		combat_choice = combat_options.slash; 
+		    	break;
+		    	case "slam":
+		    		combat_choice = combat_options.slam;
+		    	break;
+		    	case "block":
+		    	case "defend":
+		    	case "d":
+		    		combat_choice = combat_options.block;
+		    	break;
+		    	case "feint":
+		    	case "f":
+		    		combat_choice = combat_options.feint;
+		    	break;
+		    	case "parry":
+		    	case "p":
+		    		combat_choice = combat_options.parry;
+		    	break;
+	    	}
 	    }
 	    
 	    //Attacks target entity

@@ -9,6 +9,14 @@ public class Weapon extends Item{
 		ranged,
 		shield
 	}
+	public enum combat_options{
+		lunge,
+		slash,
+		slam,
+		parry,
+		feint,
+		block
+	}
 	
 	public String name;
 	protected weaponType type;
