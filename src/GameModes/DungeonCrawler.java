@@ -30,6 +30,8 @@ public class DungeonCrawler {
 		System.out.println("Hello traveler.. what is your name?");			//Name your character
 		String name = keyboard.nextLine();
 		System.out.println("What class would you like to play?");			//Select your class
+		printClassList();
+		
 		String choice = keyboard.nextLine();
 		choice = choice.toLowerCase();
 		profession p = profession.valueOf(choice);
@@ -65,5 +67,17 @@ public class DungeonCrawler {
 		return player;
 	}
 	
+	public void printClassList(){
+		System.out.println("======================================");
+		System.out.println(" Alchemist");
+		System.out.println(" Barbarian");
+		System.out.println(" Drunkard");
+		System.out.println(" Knight");
+		System.out.println(" Priest");
+		System.out.println(" Ranger");
+		System.out.println(" Rogue");
+		System.out.println(" Scribe");
+		System.out.println("======================================");
+	}
 
 }

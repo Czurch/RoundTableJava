@@ -1,5 +1,6 @@
 package mechanics.Professions;
 import mechanics.*;
+import mechanics.Items.WeaponList;
 /*
  * The Alchemist
  * 
@@ -10,6 +11,7 @@ import mechanics.*;
 import mechanics.Player.profession;
 
 public class Alchemist extends Player{
+	WeaponList catalog = new WeaponList();
 	int spellsUsed = 0;
 	int maxSpells = 2;
 	
@@ -24,6 +26,7 @@ public class Alchemist extends Player{
     	initMod = 0;
     	alive = true;
     	isDefending = false;
+    	weaponEquipped = catalog.weaponMap.get("bow staff");
 	}
 	
 	//add in spell based on stone held

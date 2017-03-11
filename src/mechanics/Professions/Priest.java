@@ -1,5 +1,6 @@
 package mechanics.Professions;
 import mechanics.*;
+import mechanics.Items.WeaponList;
 
 /*
  * The Priest
@@ -8,7 +9,8 @@ import mechanics.*;
 */
 
 public class Priest extends Player{
-
+	WeaponList catalog = new WeaponList();
+	
 	int prayersSaid = 0;		//tracks the number of times prayers are used
 	int MaxPrayers = 2;			//max prayers the priest may use
 	
@@ -23,6 +25,7 @@ public class Priest extends Player{
     	initMod = 0;
     	alive = true;
     	isDefending = false;
+    	weaponEquipped = catalog.weaponMap.get("mace");
 	}
 	
 	public void PrayerOfBlessing(Player target){

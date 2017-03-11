@@ -1,6 +1,7 @@
 package mechanics.Professions;
 import mechanics.*;
 import mechanics.Character;
+import mechanics.Items.WeaponList;
 
 /*
  * The Rogue
@@ -9,6 +10,7 @@ import mechanics.Character;
 */
 
 public class Rogue extends Player{
+	WeaponList catalog = new WeaponList();
 	
 	public Rogue(String nam){
 		name = nam;
@@ -21,6 +23,7 @@ public class Rogue extends Player{
     	initMod = 1;
     	alive = true;
     	isDefending = false;
+    	weaponEquipped = catalog.weaponMap.get("dagger");
 	}
 	
 	@Override

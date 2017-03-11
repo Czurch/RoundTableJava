@@ -1,5 +1,6 @@
 package mechanics.Professions;
 import mechanics.*;
+import mechanics.Items.WeaponList;
 
 /*
  * The Ranger
@@ -8,6 +9,7 @@ import mechanics.*;
 */
 
 public class Ranger extends Player{
+	WeaponList catalog = new WeaponList();
 
 	public Ranger(String nam){
 		name = nam;
@@ -20,6 +22,7 @@ public class Ranger extends Player{
     	initMod = 3;
     	alive = true;
     	isDefending = false;
+    	weaponEquipped = catalog.weaponMap.get("bow");
 	}
 	
 }

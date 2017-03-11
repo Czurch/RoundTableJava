@@ -1,5 +1,6 @@
 package mechanics.Professions;
 import mechanics.Player;
+import mechanics.Items.WeaponList;
 
 
 /*
@@ -9,6 +10,7 @@ import mechanics.Player;
 */
 
 public class Drunkard extends Player{
+	WeaponList catalog = new WeaponList();
 
 	public Drunkard(String nam){
 		name = nam;
@@ -21,5 +23,6 @@ public class Drunkard extends Player{
     	initMod = 0;
     	alive = true;
     	isDefending = false;
+    	weaponEquipped = catalog.weaponMap.get("hand axe");
 	}
 }

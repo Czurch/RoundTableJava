@@ -1,5 +1,6 @@
 package mechanics.Professions;
 import mechanics.*;
+import mechanics.Items.WeaponList;
 
 
 /*
@@ -9,6 +10,7 @@ import mechanics.*;
 */
 
 public class Barbarian extends Player{
+	WeaponList catalog = new WeaponList();
 	
 	//creates an instance of a Barbarian    
 	public Barbarian(String nam){
@@ -22,6 +24,7 @@ public class Barbarian extends Player{
     	initMod = 0;
     	alive = true;
     	isDefending = false;
+    	weaponEquipped = catalog.weaponMap.get("mace");
 	}
 	
 	@Override 

@@ -1,5 +1,6 @@
 package mechanics.Professions;
 import mechanics.*;
+import mechanics.Items.WeaponList;
 
 /*
  * The Scribe
@@ -9,6 +10,7 @@ import mechanics.*;
 */
 
 public class Scribe extends Player{
+	WeaponList catalog = new WeaponList();
 	
 	//The MIN / MAX for elemental damage on attacks
 	protected int maxElementDmg = 2;		
@@ -26,6 +28,7 @@ public class Scribe extends Player{
     	initMod = 0;
     	alive = true;
     	isDefending = false;
+    	weaponEquipped = catalog.weaponMap.get("nun chuk");
 	}
 	
 	@Override
