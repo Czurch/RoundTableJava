@@ -93,11 +93,11 @@ public class Fight {
 				p.Attack(e);
 				e.Attack(p);
 			}else if(enemy == combat_options.slash){						//  vs slash
-				System.out.println("and " + e .getName() + " slashes as well");
+				System.out.println("and " + e .getName() + " slashes");
 				p.Attack(e);
 				e.Attack(p);			
 			}else if(enemy == combat_options.slam){							//  vs slam
-				System.out.println("and " + e.getName() + " slams into you");
+				System.out.println("You both slam into each other!");
 				p.Attack(e);
 				e.Attack(p);	
 			}else if(enemy == combat_options.block){						//  vs block
@@ -157,7 +157,7 @@ public class Fight {
 				System.out.println("your feint fails.");
 				e.Attack(p);
 			}else if(enemy == combat_options.slash){						//  vs slash
-				System.out.println(e .getName() + " slashes as well");
+				System.out.println(e .getName() + " slashes");
 				System.out.println("your feint fails.");
 				e.Attack(p);			
 			}else if(enemy == combat_options.slam){							//  vs slam
