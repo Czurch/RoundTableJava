@@ -53,7 +53,7 @@ public class Player extends Character{
 	    	weaponEquipped = startWeapon;
 	    }
 	   
-	    
+	    //FUNTION:  statSumm	    
 	    //Prints the summary of a players stats
 	    public void statSumm(){
 	    	System.out.println("-------------------------------------\n" +
@@ -66,6 +66,7 @@ public class Player extends Character{
 	    					   "--------------------------------------");
 	    }
 	    
+	   //FUNTION:  takeDamage
 	   //Causes player to lose health on attack
 	    @Override
 	    public void takeDamage(Character e, int nmeATK){
@@ -94,9 +95,11 @@ public class Player extends Character{
 	        }
 	    }
 	    
+	    //FUNTION:  turn
 	    //this determines what happens on a player's turn
 	    public void turn(Enemy target){
 	    	Scanner scanner = new Scanner( System.in );
+
 	    	// print("use and item? y / n")
 	        // if yes
 	        // print("select item")
@@ -123,40 +126,48 @@ public class Player extends Character{
 	    //FUNTION:  combatChoice
 	    //Determines the players choice of action during a combat turn
 	    @Override
-	    public void combatChoice(){
+	    public combat_options combatChoice(){
+	    	boolean noValidOption = true;					//will loop until valid option is selected
 	    	Scanner scanner = new Scanner( System.in );
-	    	System.out.println("How will you attack?");
 	    	
-	    	String choice = scanner.nextLine();
-	    	
-	    	switch(choice.toLowerCase())
-	    	{
-		    	case "lunge":
-		    	case "l":
-		    		combat_choice = combat_options.lunge;
-		    	break;
-		    	case "slash":
-		    		combat_choice = combat_options.slash; 
-		    	break;
-		    	case "slam":
-		    		combat_choice = combat_options.slam;
-		    	break;
-		    	case "block":
-		    	case "defend":
-		    	case "d":
-		    		combat_choice = combat_options.block;
-		    	break;
-		    	case "feint":
-		    	case "f":
-		    		combat_choice = combat_options.feint;
-		    	break;
-		    	case "parry":
-		    	case "p":
-		    		combat_choice = combat_options.parry;
-		    	break;
+	    	while(noValidOption){
+		    	System.out.println("How will you attack?");
+		    	String choice = scanner.nextLine();			
+		    	
+		    	switch(choice.toLowerCase())
+		    	{
+			    	case "lunge":
+			    	case "l":
+			    		noValidOption = false;
+			    		return combat_options.lunge;
+			    	case "slash":
+			    		noValidOption = false;
+			    		return combat_options.slash;
+			    	case "slam":
+			    		noValidOption = false;
+			    		return combat_options.slam;
+			    	case "block":
+			    	case "defend":
+			    	case "d":
+			    		noValidOption = false;
+			    		return combat_options.block;
+			    	case "feint":
+			    	case "f":
+			    		noValidOption = false;
+			    		return combat_options.feint;
+			    	case "parry":
+			    	case "p":
+			    		noValidOption = false;
+			    		return combat_options.parry;
+			    	default:
+			    		System.out.println("***Not a valid option***\n"
+			    				+ "  COMBAT OPTIONS:  lunge, slash, slam, block, feint, parry\n");
+		    	}
 	    	}
+	    	return combat_options.lunge;
 	    }
 	    
+	    //FUNTION:  Attack	    
 	    //Attacks target entity
 	    public void Attack(Enemy target){
 	    	int hit = this.weaponEquipped.active();
@@ -165,6 +176,7 @@ public class Player extends Character{
 	    	target.takeDamage(this, hit);
 	    }
 	    
+	    //FUNTION:  Defend
 	    //sets defend value to true
 	    public void Defend(){
 	    	this.isDefending = true;

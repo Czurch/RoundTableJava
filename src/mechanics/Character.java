@@ -26,28 +26,22 @@ public class Character {
     
     //FUNTION:  combatChoice
     //Determines the players choice of action during a combat turn
-    public void combatChoice(){
+    public combat_options combatChoice(){
     	int randy = (int)(Math.random() * 6) + 1;
     	switch(randy)
     	{
-	    	case 1:
-	    		combat_choice = combat_options.lunge;
-	    	break;
 	    	case 2:
-	    		combat_choice = combat_options.slash; 
-	    	break;
+	    		return combat_options.slash; 
 	    	case 3:
-	    		combat_choice = combat_options.slam;
-	    	break;
+	    		return combat_options.slam;
 	    	case 4:
-	    		combat_choice = combat_options.block;
-	    	break;
+	    		return combat_options.block;
 	    	case 5:
-	    		combat_choice = combat_options.feint;
-	    	break;
+	    		return combat_options.feint;
 	    	case 6:
-	    		combat_choice = combat_options.parry;
-	    	break;
+	    		return combat_options.parry;
+	    	default:
+	    		return combat_options.lunge;
     	}
     }
     
@@ -56,7 +50,11 @@ public class Character {
     //Attacks target entity
     public void Attack(Character target){
     	int hit = this.weaponEquipped.active();
-    	System.out.println(this.name + " strikes for "+ hit + " damage with it's " + this.weaponEquipped.name);
+    	if(target == this){
+    		System.out.println(this.name + " strikes itself for "+ hit + " damage with it's " + this.weaponEquipped.name);
+    	}else{
+    		System.out.println(this.name + " strikes for "+ hit + " damage with it's " + this.weaponEquipped.name);
+    	}
     	target.takeDamage(this, hit);
     }
 
