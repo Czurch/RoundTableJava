@@ -23,7 +23,7 @@ public class EnemyList {
 	public HashMap<String,Enemy> swampList = new HashMap<String,Enemy>();
 	public HashMap<String,Enemy> desertList = new HashMap<String,Enemy>();
 	public HashMap<String,Enemy> oceanList = new HashMap<String,Enemy>();
-	public HashMap<String,Enemy> glacierList = new HashMap<String,Enemy>();
+	public HashMap<String,Enemy> tundraList = new HashMap<String,Enemy>();
 	public HashMap<String,Enemy> volcanoList = new HashMap<String,Enemy>();
 	
 	public EnemyList(){
@@ -35,7 +35,7 @@ public class EnemyList {
 		lookup.put(terrain.swamp, swampList);
 		lookup.put(terrain.desert, desertList);
 		lookup.put(terrain.ocean, oceanList);
-		lookup.put(terrain.glacier, glacierList);
+		lookup.put(terrain.tundra, tundraList);
 		lookup.put(terrain.volcano, volcanoList);
 		
 		//populate each terrain
