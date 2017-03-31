@@ -1,5 +1,7 @@
 package mechanics;
 
+import java.util.Random;
+
 public class coreMath {
 
 	//Simulates the roll of a die
@@ -13,5 +15,10 @@ public class coreMath {
 	
 	public static int randomNumberBetween(int low, int high){
 		return (int)(Math.random() * high) + low;
+	}
+	
+	public static float randomFreq()
+	{
+		return (float)(Math.random() * 2) - 1;
 	}
 }

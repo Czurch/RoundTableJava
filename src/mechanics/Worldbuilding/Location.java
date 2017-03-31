@@ -1,19 +1,10 @@
-package mechanics;
+package mechanics.Worldbuilding;
 
 import java.util.ArrayList;
 
+import mechanics.Character;
+
 public class Location {
-    public enum terrain{
-    	plains,
-    	forest,
-    	mountain,
-    	swamp,
-    	desert,
-    	ocean,
-    	tundra,
-    	volano
-    }
-    
     
     //scratch this idea, turn these into child classes of Location
     public enum locale{
@@ -21,15 +12,6 @@ public class Location {
     	village,
     	farmland,
     	
-    }
-    
-    public enum safety_rating{
-    	peaceful,
-    	rowdy,
-    	wild,
-    	unsafe,
-    	warring,
-    	dangerous
     }
     
     protected terrain areaType;

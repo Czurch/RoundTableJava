@@ -1,9 +1,9 @@
 package GameModes;
 import java.util.Scanner;
 import mechanics.*;
-import mechanics.Location.terrain;
 import mechanics.Player.profession;
 import mechanics.Professions.*;
+import mechanics.Worldbuilding.Tile.terrain;
 
 public class DungeonCrawler {
 	Scanner keyboard = new Scanner( System.in );

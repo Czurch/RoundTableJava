@@ -7,8 +7,9 @@ import java.util.Random;
 
 import mechanics.Items.Weapon;
 import mechanics.Items.Weapon.weaponType;
+import mechanics.Worldbuilding.Tile;
+import mechanics.Worldbuilding.Tile.terrain;
 import mechanics.Items.WeaponList;
-import mechanics.Location.terrain;
 
 public class EnemyList {
 	List<String> keysAsArray;
@@ -60,7 +61,7 @@ public class EnemyList {
 	}
 	
 	//Randomly selects enemy from a location
-	public Enemy randomByLocation(Location.terrain area){
+	public Enemy randomByLocation(Tile.terrain area){
 		HashMap<String,Enemy> map = lookup.get(area);						//select the correct area list
 		keysAsArray = new ArrayList<String>(map.keySet());	//get the set of keys
 		
