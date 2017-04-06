@@ -2,6 +2,8 @@ package mechanics;
 
 import java.util.Random;
 
+import mechanics.Worldbuilding.Tile;
+
 public class coreMath {
 
 	//Simulates the roll of a die
@@ -21,4 +23,5 @@ public class coreMath {
 	{
 		return (float)(Math.random() * 2) - 1;
 	}
+
 }

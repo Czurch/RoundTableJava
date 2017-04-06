@@ -3,6 +3,7 @@ import java.util.Scanner;
 import mechanics.*;
 import mechanics.Player.profession;
 import mechanics.Professions.*;
+import mechanics.Worldbuilding.Tile.biome;
 import mechanics.Worldbuilding.Tile.terrain;
 
 public class DungeonCrawler {
@@ -17,7 +18,7 @@ public class DungeonCrawler {
 		
 		while(player.isAlive()){					//continue fighting while player lives
 			totalEncounters++;
-			Enemy jimbob = catalog.randomByLocation(terrain.plains);				//Create new enemy
+			Enemy jimbob = catalog.randomByLocation(biome.grassland);				//Create new enemy
 			jimbob.randomizeHitPoints();
 			Fight f = new Fight(player, jimbob);	//Fight the enemy
 			player.statSumm();

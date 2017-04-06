@@ -10,32 +10,33 @@ public class Tile {
     	treacherous
     }
 	
-    public enum terrain{
-    	plains,
+    public enum biome{
+    	grassland,
     	forest,
     	mountain,
     	swamp,
     	desert,
     	ocean,
     	tundra,
-    	volcano
+    	jungle,
+    	mire
     }
     
 	public int x,y;
 	public int id;
 	public float weight;
 	public safety_rating rating;
-	public terrain terr;
+	public biome terrain;
 	public Tile n_neighbor;
 	public Tile s_neighbor;
 	public Tile e_neighbor;
 	public Tile w_neighbor;
 	
-	public Tile(int ex, int why, safety_rating rat, terrain t){
+	public Tile(int ex, int why, safety_rating rat, biome t){
 		x = ex;
 		y = why;
 		rating = rat;
-		terr = t;
+		terrain = t;
 	}
 	
 	public void setNeighbors(Tile north, Tile south, Tile east, Tile west)

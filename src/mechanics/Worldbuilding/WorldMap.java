@@ -12,20 +12,19 @@ public class WorldMap
 {	
 	public static int WORLD_HEIGHT = 512;
 	public static int WORLD_WIDTH = 512;
+	public static int EQUATOR = WORLD_HEIGHT/2;
+	public static int TROPIC = (EQUATOR)/100 * 30;
+	public static int SUB_TROPIC = (EQUATOR)/100 * 50;
+	public static int TEMPERATE = (EQUATOR)/100 * 80;
+	public static int FRIGID = EQUATOR;
 	Tile[][] world_map = new Tile[(WORLD_HEIGHT+1)][(WORLD_WIDTH+1)];
 	private int equator;
 	
 	public WorldMap()
 	{
-		determine_equator();
 		generate_tileset();
 		//SimplexTerrain(2);
 		FractalTerrain();
-	}
-	
-	public void determine_equator()
-	{
-		equator = WORLD_HEIGHT/2;
 	}
 	
 	// FUNCTION: generate_tileset
@@ -144,7 +143,8 @@ public class WorldMap
 		JOptionPane.showMessageDialog(null, null, "Another", JOptionPane.YES_NO_OPTION, new ImageIcon(img.getScaledInstance(WORLD_WIDTH, WORLD_HEIGHT, Image.SCALE_AREA_AVERAGING)));
 	}
 	
-	
+	// FUNCTION: display_map_values
+	// INFO:	 prints out the height value for each tile
 	public void display_map_values()
 	{
 		for(int x = 0; x < WORLD_WIDTH; x++)
@@ -157,25 +157,6 @@ public class WorldMap
 		}
 	}
 	
-	// FUNCTION: SimplexTerrain
-	// INFO:	 ramdomly varies the terrain on the world
-	public void SimplexTerrain(int growthFactor)
-	{
-		SimplexNoise sng = new SimplexNoise();
-		float[][] osn = sng.generateOctavedSimplexNoise(WORLD_WIDTH, WORLD_HEIGHT, 16, 0.5f, 0.002f);
-		
-		for(int x = 0; x < WORLD_WIDTH; x++)
-		{	
-			for(int y = 0; y < WORLD_HEIGHT; y++)
-			{
-				this.world_map[x][y].weight = 0;
-				for(int growth = 0; growth < growthFactor; growth++)
-				{
-					this.world_map[x][y].weight += osn[x][y];
-				}
-			}
-		}
-	}
 	
 	// FUNCTION: FractalTerrain
 	// INFO:	 ramdomly varies the terrain on the world
@@ -186,10 +167,46 @@ public class WorldMap
 		{
 			for (int x = 0; x < WORLD_WIDTH; x++) 
 			{
-				int i = x + y * WORLD_WIDTH;
 				world_map[x][y].weight = (float)generation.sample(x,y);
 			}
 		}
 	}
+	
+	// FUNCTION: create_climates
+	// INFO:	 creates climates and determines biome of each tile
+	public void create_climates()
+	{
+		for (int y = 0; y < WORLD_HEIGHT; y++) 
+		{
+			for (int x = 0; x < WORLD_WIDTH; x++) 
+			{
+				int i = x + y * WORLD_WIDTH;
+				world_map[x][y].terr = determine_biome(Math.abs(this.equator - y));
+			}
+		}
+	}
+	
+	// FUNCTION: create_climates
+	// INFO:	 creates climates and determines biome of each tile
+	public Tile.biome determine_biome(int lattitude)
+	{
+		if(lattitude <= TROPIC)
+		{
+			
+		}
+		else if(lattitude <= SUB_TROPIC)
+		{
+			
+		}
+		else if(lattitude <= TEMPERATE)
+		{
+			
+		}
+		else if(lattitude <= FRIGID)
+		{
+			
+		}
+	}
+	
 	
 }

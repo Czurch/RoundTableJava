@@ -14,16 +14,14 @@ public class Location {
     	
     }
     
-    protected terrain areaType;
-    protected safety_rating safety;
+    protected locale area;
     protected String name;
     protected ArrayList<Character> characterList;
     protected ArrayList<Location> nearbyLocations;
     
-    public Location(String nom, terrain ter, safety_rating rating){
+    public Location(String nom, locale ar){
     	name = nom;
-    	areaType = ter;
-    	safety = rating;
+    	area = ar;
     }
     
     public void populate_area(){
