@@ -1,12 +1,13 @@
 package GameModes;
 import java.util.Scanner;
 import mechanics.*;
-import mechanics.Location.terrain;
 import mechanics.Player.profession;
 import mechanics.Professions.*;
+import mechanics.Worldbuilding.Tile.biome;
+import mechanics.Worldbuilding.Tile.terrain;
 
 public class DungeonCrawler {
-	Scanner keyboard = new Scanner( System.in );
+	static Scanner keyboard = new Scanner( System.in );
 	
 	int totalEncounters = 0;
 	
@@ -17,7 +18,7 @@ public class DungeonCrawler {
 		
 		while(player.isAlive()){					//continue fighting while player lives
 			totalEncounters++;
-			Enemy jimbob = catalog.randomByLocation(terrain.plains);				//Create new enemy
+			Enemy jimbob = catalog.randomByLocation(biome.grassland);				//Create new enemy
 			jimbob.randomizeHitPoints();
 			Fight f = new Fight(player, jimbob);	//Fight the enemy
 			player.statSumm();
@@ -25,7 +26,7 @@ public class DungeonCrawler {
 	}
 	
 	//The Character creation method
-	public Player createPlayer(){
+	static public Player createPlayer(){
 		Player player = new Player();
 		System.out.println("Hello traveler.. what is your name?");			//Name your character
 		String name = keyboard.nextLine();

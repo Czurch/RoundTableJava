@@ -7,8 +7,9 @@ import java.util.Random;
 
 import mechanics.Items.Weapon;
 import mechanics.Items.Weapon.weaponType;
+import mechanics.Worldbuilding.Tile;
+import mechanics.Worldbuilding.Tile.terrain;
 import mechanics.Items.WeaponList;
-import mechanics.Location.terrain;
 
 public class EnemyList {
 	List<String> keysAsArray;
@@ -23,7 +24,7 @@ public class EnemyList {
 	public HashMap<String,Enemy> swampList = new HashMap<String,Enemy>();
 	public HashMap<String,Enemy> desertList = new HashMap<String,Enemy>();
 	public HashMap<String,Enemy> oceanList = new HashMap<String,Enemy>();
-	public HashMap<String,Enemy> glacierList = new HashMap<String,Enemy>();
+	public HashMap<String,Enemy> tundraList = new HashMap<String,Enemy>();
 	public HashMap<String,Enemy> volcanoList = new HashMap<String,Enemy>();
 	
 	public EnemyList(){
@@ -35,7 +36,7 @@ public class EnemyList {
 		lookup.put(terrain.swamp, swampList);
 		lookup.put(terrain.desert, desertList);
 		lookup.put(terrain.ocean, oceanList);
-		lookup.put(terrain.glacier, glacierList);
+		lookup.put(terrain.tundra, tundraList);
 		lookup.put(terrain.volcano, volcanoList);
 		
 		//populate each terrain
@@ -60,7 +61,7 @@ public class EnemyList {
 	}
 	
 	//Randomly selects enemy from a location
-	public Enemy randomByLocation(Location.terrain area){
+	public Enemy randomByLocation(Tile.terrain area){
 		HashMap<String,Enemy> map = lookup.get(area);						//select the correct area list
 		keysAsArray = new ArrayList<String>(map.keySet());	//get the set of keys
 		
