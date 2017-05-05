@@ -13,6 +13,7 @@ public class Tile {
     public enum biome{
     	grassland,
     	forest,
+    	rainforest,
     	mountain,
     	swamp,
     	desert,
@@ -21,6 +22,13 @@ public class Tile {
     	jungle,
     	mire
     }
+    
+    byte resource;
+	// Resource Map Catalog
+	// 0 = wild
+	// 1 = farm
+	// 2 = lumber
+	// 3 = stone
     
 	public int x,y;
 	public int id;

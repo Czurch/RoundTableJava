@@ -7,7 +7,7 @@ import mechanics.Worldbuilding.Tile.biome;
 import mechanics.Worldbuilding.Tile.terrain;
 
 public class DungeonCrawler {
-	Scanner keyboard = new Scanner( System.in );
+	static Scanner keyboard = new Scanner( System.in );
 	
 	int totalEncounters = 0;
 	
@@ -26,7 +26,7 @@ public class DungeonCrawler {
 	}
 	
 	//The Character creation method
-	public Player createPlayer(){
+	static public Player createPlayer(){
 		Player player = new Player();
 		System.out.println("Hello traveler.. what is your name?");			//Name your character
 		String name = keyboard.nextLine();
