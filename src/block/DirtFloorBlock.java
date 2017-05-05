@@ -1,6 +1,7 @@
 package block;
 
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 public class DirtFloorBlock extends Block{
 	public DirtFloorBlock(int id)
@@ -8,13 +9,19 @@ public class DirtFloorBlock extends Block{
 		super(id);
 	}
 	
-	public DirtFloorBlock(int id, int x, int y, int rot, int sc, int sp, int dir){
-		super(id, x, y, rot, sc, sp, dir);
+	public DirtFloorBlock( int x, int y, int rot, int sc, int sp, int dir){
+		super(0, x, y, rot, sc, sp, dir);
 	}
 	
-	public void init(Image tileset){
-		this.sprite = tileset.getSubImage(0,448,32,32);
-				
+	public void init(){
+		Image tileset;
+		try {
+			tileset = new Image("res/DungeonCrawl_ProjectUtumnoTileset.png");
+			this.sprite = tileset.getSubImage(0,448,32,32);
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void update() {

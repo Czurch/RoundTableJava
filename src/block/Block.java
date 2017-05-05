@@ -26,17 +26,6 @@ public class Block extends GameObject{
 	public Block(int id, int x, int y, int rot, int sc, int sp, int dir){
 		super(x, y, rot, sc, sp, dir);
 		this.id = (byte) id;
-		if (tiles[id] != null) throw new RuntimeException("Duplicate tile ids!");
-		tiles[id] = this;
-	}
-	
-	public void init(){		
-	}
-	
-	public void render() {
-	}
-
-	public void update() {
 	}
 	
 	public boolean mayPass() {

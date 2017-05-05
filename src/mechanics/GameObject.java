@@ -6,7 +6,8 @@ import org.newdawn.slick.geom.Rectangle;
 
 public class GameObject {
 
-	protected int x_pos, y_pos;
+	public int x_pos;
+	public int y_pos;
 	protected int width, height;
 	protected int rotation;
 	protected int scale;
@@ -30,6 +31,12 @@ public class GameObject {
 	
 	public void render(Graphics g)
 	{
+		g.drawImage(sprite, x_pos, y_pos);
+	}
+	public void renderAt(Graphics g, int x, int y)
+	{
+		x_pos = x;
+		y_pos = y;
 		g.drawImage(sprite, x_pos, y_pos);
 	}
 	

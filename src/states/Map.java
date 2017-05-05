@@ -15,74 +15,41 @@ import mechanics.Worldbuilding.Cave.Coord;
 
 public class Map extends BasicGameState {
 
-	int SIZE = 100;
-	int TILE_SIZE = 32;
-	int map_width = 100;
-	int map_height = 100;
-	Level level = new Level(map_width, map_height);
+	int SIZE 		= 	100;
+	int TILE_SIZE 	= 	32;
+	int map_width 	= 	100;
+	int map_height 	= 	100;
+	Level level 	= 	new Level(map_width, map_height);
 	SpriteSheet sheet;
 	Player p;
 	
 	
-	Image tileset = null;
-	Image mapImage = null;
-	Image noTile = null;
-	Image groundTile = null;
-	Image wallTile = null;
-	Image playerSprite = null;
+	Image tileset 		= null;
+	Image mapImage 		= null;
+	Image noTile 		= null;
+	Image groundTile 	= null;
+	Image wallTile 		= null;
+	Image playerSprite 	= null;
 	int p_pos_X, p_pos_Y;
 	
 	MapRenderer renderer;
-	
-    public class MapRenderer implements Runnable {
-        private GameContainer container;
-        
-        public MapRenderer(GameContainer container) {
-            this.container = container;
-        }
-        
-        public void run() {
-            run(container.getGraphics(), false);
-        }
-        
-        public void run(Graphics g, boolean embedded) {
-            //if we are using the 'embedded' mode, start/end use
-            if (embedded)
-                sheet.startUse();
-            
-            for (int i=0; i<SIZE; i++) {
-                for (int j=0; j<SIZE; j++) {
-                    //Here you would usually figure out which tile to render,
-                    //i.e. grass, water, bridge, etc.
-                    
-                    //if we are using 'embedded' mode, render from the sheet
-                    if (embedded)
-                        sheet.renderInUse(i*TILE_SIZE, j*TILE_SIZE, 0, 0);
-                    
-                    //otherwise just render the image to the graphics context
-                    else
-                    	g.drawImage(groundTile, i*TILE_SIZE, j*TILE_SIZE);
-                }
-            }
-            if (embedded)
-                sheet.endUse();
-        }
-    } 
     
 	public Map(int state){}
 	
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		renderer = new MapRenderer(gc);
+		renderer = new MapRenderer(gc, SIZE, TILE_SIZE);
 		
-		tileset = new Image("res/DungeonCrawl_ProjectUtumnoTileset.png");
-		noTile = tileset.getSubImage(0,0,32,32);
-		groundTile =  tileset.getSubImage(0,448,32,32);
-		wallTile = tileset.getSubImage(704, 416, 32, 32);
-		playerSprite = tileset.getSubImage(32, 992, 32, 32);
-		Player p = new Player();
-		Cave splunk = new Cave(map_width, map_height, 45);
-		level.getObstacleMap(splunk);
+		tileset 		= new Image("res/DungeonCrawl_ProjectUtumnoTileset.png");
+		noTile 			= tileset.getSubImage(0,0,32,32);
+		groundTile 		=  tileset.getSubImage(0,448,32,32);
+		wallTile 		= tileset.getSubImage(704, 416, 32, 32);
+		playerSprite 	= tileset.getSubImage(32, 992, 32, 32);
+		Player p 		= new Player();
+		Cave splunk 	= new Cave(map_width, map_height, 45);
+		
+		level.getObstacleMap(splunk.map);
+		System.out.println("Obstacle map initialized");
 		
 		p_pos_X = 32;
 		p_pos_Y = 32;
@@ -100,7 +67,8 @@ public class Map extends BasicGameState {
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
-		mapImage.draw(p_pos_X, p_pos_Y);
+		//mapImage.draw(p_pos_X, p_pos_Y);
+		level.render(g);
 		playerSprite.draw(320,110);
 	}
 
