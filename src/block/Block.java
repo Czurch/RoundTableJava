@@ -28,6 +28,9 @@ public class Block extends GameObject{
 		this.id = (byte) id;
 	}
 	
+	public void init(){
+	}
+	
 	public boolean mayPass() {
 		return true;
 	}

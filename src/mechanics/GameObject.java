@@ -29,6 +29,8 @@ public class GameObject {
 		direction 	= 	dir;
 	}
 	
+	public void init(){
+	}
 	public void render(Graphics g)
 	{
 		g.drawImage(sprite, x_pos, y_pos);
@@ -37,6 +39,7 @@ public class GameObject {
 	{
 		x_pos = x;
 		y_pos = y;
+		//sprite.draw(x_pos, y_pos);
 		g.drawImage(sprite, x_pos, y_pos);
 	}
 	

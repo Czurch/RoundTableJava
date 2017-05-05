@@ -11,6 +11,13 @@ public class StoneWallBlock extends Block{
 	
 	public StoneWallBlock(int x, int y, int rot, int sc, int sp, int dir){
 		super(1, x, y, rot, sc, sp, dir);
+		Image tileset;
+		try {
+			tileset = new Image("res/DungeonCrawl_ProjectUtumnoTileset.png");
+			this.sprite = tileset.getSubImage(704, 416, 32, 32);
+		} catch (SlickException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void init(){

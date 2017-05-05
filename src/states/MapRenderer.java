@@ -41,6 +41,7 @@ public class MapRenderer implements Runnable {
                 //otherwise just render the image to the graphics context
                 else
                 	groundTile = new DirtFloorBlock(i*TILE_SIZE, j*TILE_SIZE, 0, 1, 0, 0);
+                	groundTile.render(g);
             }
         }
         if (embedded)

@@ -19,7 +19,7 @@ public class Map extends BasicGameState {
 	int TILE_SIZE 	= 	32;
 	int map_width 	= 	100;
 	int map_height 	= 	100;
-	Level level 	= 	new Level(map_width, map_height);
+	Level level;
 	SpriteSheet sheet;
 	Player p;
 	
@@ -48,6 +48,7 @@ public class Map extends BasicGameState {
 		Player p 		= new Player();
 		Cave splunk 	= new Cave(map_width, map_height, 45);
 		
+		level 			= 	new Level(map_width, map_height);
 		level.getObstacleMap(splunk.map);
 		System.out.println("Obstacle map initialized");
 		
@@ -68,7 +69,7 @@ public class Map extends BasicGameState {
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics g) throws SlickException {
 		//mapImage.draw(p_pos_X, p_pos_Y);
-		level.render(g);
+		level.render(g,p_pos_X, p_pos_Y);
 		playerSprite.draw(320,110);
 	}
 

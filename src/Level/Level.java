@@ -20,6 +20,8 @@ public class Level
 	
 	public Level(int w, int h)
 	{
+		this.width = w;
+		this.height = h;
 		tiles = new Block[width][height];
 		objectsInLevel = new ArrayList<GameObject>();
 	}
@@ -40,11 +42,11 @@ public class Level
 		}
 	}
 	
-	public void render(Graphics g)
+	public void render(Graphics g, int dx, int dy)
 	{
 		for(int x = 0; x < width; x++){
 			for(int y = 0; y < height; y++){
-				tiles[x][y].render(g);
+				tiles[x][y].renderAt(g,x*TILE_SIZE + dx,  y*TILE_SIZE + dy);
 			}
 		}
 	}
