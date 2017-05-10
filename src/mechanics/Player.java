@@ -1,6 +1,9 @@
 package mechanics;
 import  java.util.Scanner;
 
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+
 import mechanics.Items.Weapon;
 
 public class Player extends Character{
@@ -23,7 +26,17 @@ public class Player extends Character{
 	    //Skill Checks
 	    //to be added soon
 
-	    public Player(){
+	    public Player(int x, int y, int rot, int sc, int sp, int dir)
+	    {
+			super(x, y, rot, sc, sp, dir);
+			Image tileset;
+			try {
+				tileset = new Image("res/DungeonCrawl_ProjectUtumnoTileset.png");
+				this.sprite = tileset.getSubImage(32, 992, 32, 32);
+			} catch (SlickException e) {
+				e.printStackTrace();
+			}
+	    	
 	    	name = "Placeholder";
 	    	job = profession.knight;
 	    	health = 8;
@@ -37,7 +50,16 @@ public class Player extends Character{
 	    	isDefending = false;
 	    }
 	    
-	    public Player(String nam, int HP, int ATK, int DEF, int ARMR, int INIT, Weapon startWeapon){
+	    public Player(String nam, int HP, int ATK, int DEF, int ARMR, int INIT, Weapon startWeapon, int x, int y, int rot, int sc, int sp, int dir){
+			super(x, y, rot, sc, sp, dir);
+			Image tileset;
+			try {
+				tileset = new Image("res/DungeonCrawl_ProjectUtumnoTileset.png");
+				this.sprite = tileset.getSubImage(32, 992, 32, 32);
+			} catch (SlickException e) {
+				e.printStackTrace();
+			}
+	    	
 	    	name = nam;
 	    	job = profession.knight;
 	    	health = HP;

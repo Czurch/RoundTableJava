@@ -3,7 +3,7 @@ package mechanics;
 import mechanics.Player.profession;
 import mechanics.Items.Weapon;
 
-public class Character {
+public class Character extends GameObject{
 	//Base stats for player
 	protected String name;
 	protected profession job;
@@ -17,6 +17,11 @@ public class Character {
     protected boolean alive;
     protected Weapon weaponEquipped;
     
+    
+    public Character(int x, int y, int rot, int sc, int sp, int dir)
+    {
+    	super(x, y, rot, sc, sp, dir);
+    }
     
     //Attacks target entity
     public void Attack(Character target){

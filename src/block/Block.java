@@ -5,10 +5,10 @@ import java.util.List;
 import mechanics.GameObject;
 
 public class Block extends GameObject{
-	int x, y;
 	boolean isBlocking = false;
+	
 
-	public List<GameObject> objectsOnBlock;
+	public List<GameObject> objectsWithin;
 	
 	public static Block[] tiles = new Block[256];
 	public static Block dirtFloor = new DirtFloorBlock(0);
@@ -41,4 +41,10 @@ public class Block extends GameObject{
 	public boolean interact() {
 		return false;
 	}
+	
+	public boolean canPass(GameObject go)
+	{
+		return !isBlocking;
+	}
+	
 }

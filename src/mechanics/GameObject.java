@@ -51,4 +51,20 @@ public class GameObject {
 	
 	public void update(){
 	}
+	
+	public int getX()
+	{
+		return this.x_pos;
+	}
+	
+	public int getY()
+	{
+		return this.y_pos;
+	}
+	
+	public void setXY(int x, int y)
+	{
+		this.x_pos = x;
+		this.y_pos = y;
+	}
 }

@@ -6,6 +6,9 @@ import org.newdawn.slick.state.*;
 
 public class Game extends StateBasedGame{
 
+	static int FRAME_RATE = 60;
+	public static final int SCREEN_WIDTH = 1920;
+	public static final int SCREEN_HEIGHT = 1080;
 	public static final String gamename = "RoundTable Lite";
 	public static final int menu = 0;
 	public static final int map = 1;
@@ -28,7 +31,7 @@ public class Game extends StateBasedGame{
 		this.getState(map).init(gc, this);
 		//this.getState(dungeon).init(gc, this);
 		//this.getState(inventory).init(gc, this);
-		this.enterState(menu);
+		this.enterState(map);
 	}
 	
 	public static void main(String[] args)
@@ -36,7 +39,8 @@ public class Game extends StateBasedGame{
 		AppGameContainer appgc;
 		try{
 			appgc = new AppGameContainer(new Game(gamename));
-			appgc.setDisplayMode(640, 360, false);
+			appgc.setDisplayMode(SCREEN_WIDTH, SCREEN_HEIGHT, false);
+			appgc.setTargetFrameRate(FRAME_RATE);
 			appgc.start();
 		}catch(SlickException e){
 			e.printStackTrace();

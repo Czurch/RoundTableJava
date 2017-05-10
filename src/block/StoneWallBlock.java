@@ -11,6 +11,8 @@ public class StoneWallBlock extends Block{
 	
 	public StoneWallBlock(int x, int y, int rot, int sc, int sp, int dir){
 		super(1, x, y, rot, sc, sp, dir);
+		isBlocking = true;
+		
 		Image tileset;
 		try {
 			tileset = new Image("res/DungeonCrawl_ProjectUtumnoTileset.png");

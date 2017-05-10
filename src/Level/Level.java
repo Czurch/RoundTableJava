@@ -14,7 +14,7 @@ public class Level
 	int SIZE = 100;
 	int TILE_SIZE = 32;
 	int width, height;
-	Block tiles[][];
+	public Block tiles[][];
 	
 	public List<GameObject> objectsInLevel;
 	
