@@ -1,8 +1,11 @@
 package mechanics;
 
+import mechanics.Worldbuilding.*;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Rectangle;
+
+import Level.Level;
 
 public class GameObject {
 
@@ -44,6 +47,95 @@ public class GameObject {
 	}
 	
 	public void destroy(){
+	}
+	
+	// FUNCTION: move (Level level, int direction)		directions:			8	1	2
+	// returns: 1 if successful 											  \	| /
+	//			0 if fail									  				7 - P - 3
+												//							  / | \
+												//							6	5	4
+	
+	public int move(int x, int y, Level level, int direction)
+	{
+		switch(direction)
+		{
+		
+		case 1:											// 1
+			y -= 1;
+			if(level.tiles[x][y].canPass(this))
+			{
+				return 1;
+			}
+			else
+				return 0;
+		case 2:											// 2
+			x += 1;
+			y -= 1;
+			if(level.tiles[x][y].canPass(this))
+			{
+				return 1;
+			}
+			else
+				return 0;
+		case 3:											// 3
+			x += 1;
+			
+			if(level.tiles[x][y].canPass(this))
+			{
+				return 1;
+			}
+			else
+				return 0;
+		case 4:											// 4
+			x += 1;
+			y += 1;
+			if(level.tiles[x][y].canPass(this))
+			{
+				return 1;
+			}
+			else
+				return 0;
+		case 5:											// 5
+			y += 1;
+			
+			if(level.tiles[x][y].canPass(this))
+			{
+				return 1;
+			}
+			else
+				return 0;	
+		case 6:											// 6
+			x -= 1;
+			y += 1;
+			if(level.tiles[x][y].canPass(this))
+			{
+				return 1;
+			}
+			else
+				return 0;
+		case 7:											// 7
+			x -= 1;
+
+			if(level.tiles[x][y].canPass(this))
+			{
+				return 1;
+			}
+			else
+				return 0;
+		case 8:											// 8
+			x -= 1;
+			y -= 1;
+			if(level.tiles[x][y].canPass(this))
+			{
+				return 1;
+			}
+			else
+				return 0;
+		default:
+			System.out.println("No Direction Returned in GameObject move method!");
+			return 0;
+		}
+		
 	}
 	
 	public void collision(GameObject go){

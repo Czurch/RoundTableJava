@@ -45,22 +45,17 @@ public class Map extends BasicGameState {
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
 		renderer = new MapRenderer(gc, SIZE, TILE_SIZE);
 		
-		
-		tileset 		= new Image("res/DungeonCrawl_ProjectUtumnoTileset.png");
-		noTile 			= tileset.getSubImage(0,0,32,32);
-		groundTile 		=  tileset.getSubImage(0,448,32,32);
-		wallTile 		= tileset.getSubImage(704, 416, 32, 32);
-		playerSprite 	= tileset.getSubImage(32, 992, 32, 32);
 		Cave splunk 	= new Cave(map_width, map_height, 45);
+		
+		p_pos_X 		= 14;
+		p_pos_Y 		= 3;
 		
 		level 			= 	new Level(map_width, map_height);
 		level.getObstacleMap(splunk.map);
 		currentBlock = level.tiles[p_pos_X][p_pos_Y];
 		System.out.println("Obstacle map initialized");
 		
-		p_pos_X 		= 14;
-		p_pos_Y 		= 3;
-		player 			= new Player(p_pos_X*TILE_SIZE, p_pos_Y*TILE_SIZE, 0, 1, 0, 0);
+		player 			= new Player(currentBlock.getX(), currentBlock.getY(), 0, 1, 0, 0);
 		
         mapImage = new Image(SIZE * TILE_SIZE, SIZE* TILE_SIZE);
         Graphics g = mapImage.getGraphics();
@@ -83,52 +78,69 @@ public class Map extends BasicGameState {
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
 		Input input = gc.getInput();
-		
+
 		if(input.isKeyDown(Input.KEY_W))
 		{
 			if(p_pos_Y != 0)
 			{
-				p_pos_Y -= 1;
-				if(level.tiles[p_pos_X][p_pos_Y].canPass(player))
-					currentBlock = level.tiles[p_pos_X][p_pos_Y];
-				else
-					p_pos_Y += 1;
+				p_pos_Y -= player.move(p_pos_X, p_pos_Y, level, 1);
 			}
 			
 		}
-		if(input.isKeyDown(Input.KEY_S))
+		if(input.isKeyDown(Input.KEY_E))
 		{
-			if(p_pos_Y < SIZE)
+			if(p_pos_X < SIZE && p_pos_Y != 0)
 			{
-				p_pos_Y += 1;
-				if(level.tiles[p_pos_X][p_pos_Y].canPass(player))
-					currentBlock = level.tiles[p_pos_X][p_pos_Y];
-				else
-					p_pos_Y -= 1;
-			}
-		}
-		if(input.isKeyDown(Input.KEY_A))
-		{
-			if(p_pos_X != 0)
-			{
-				p_pos_X -= 1;
-				if(level.tiles[p_pos_X][p_pos_Y].canPass(player))
-					currentBlock = level.tiles[p_pos_X][p_pos_Y];
-				else
-					p_pos_X += 1;
+				p_pos_X += player.move(p_pos_X, p_pos_Y, level, 2);
+				p_pos_Y -= player.move(p_pos_X, p_pos_Y, level, 2);
 			}
 		}
 		if(input.isKeyDown(Input.KEY_D))
 		{
 			if(p_pos_X < SIZE)
 			{
-				p_pos_X += 1;
-				if(level.tiles[p_pos_X][p_pos_Y].canPass(player))
-					currentBlock = level.tiles[p_pos_X][p_pos_Y];
-				else
-					p_pos_X -= 1;
+				p_pos_X += player.move(p_pos_X, p_pos_Y, level, 3);
 			}
 		}
+		if(input.isKeyDown(Input.KEY_C))
+		{
+			if(p_pos_Y < SIZE && p_pos_X < SIZE)
+			{
+				p_pos_X += player.move(p_pos_X, p_pos_Y, level, 4);
+				p_pos_Y += player.move(p_pos_X, p_pos_Y, level, 4);
+			}
+		}
+		if(input.isKeyDown(Input.KEY_S))
+		{
+			if(p_pos_Y < SIZE)
+			{
+				p_pos_Y += player.move(p_pos_X, p_pos_Y, level, 5);
+			}
+		}
+		if(input.isKeyDown(Input.KEY_Z))
+		{
+			if(p_pos_Y < SIZE && p_pos_X != 0)
+			{
+				p_pos_X -= player.move(p_pos_X, p_pos_Y, level, 6);
+				p_pos_Y += player.move(p_pos_X, p_pos_Y, level, 6);
+			}
+		}
+		if(input.isKeyDown(Input.KEY_A))
+		{
+			if(p_pos_X != 0)
+			{
+				p_pos_X -= player.move(p_pos_X, p_pos_Y, level, 7);
+			}
+		}
+		if(input.isKeyDown(Input.KEY_Q))
+		{
+			if(p_pos_Y != 0 && p_pos_X != 0)
+			{
+				p_pos_X -= player.move(p_pos_X, p_pos_Y, level, 8);
+				p_pos_Y -= player.move(p_pos_X, p_pos_Y, level, 8);
+			}
+		}
+		currentBlock = level.tiles[p_pos_X][p_pos_Y];
 	}
 
 	@Override
