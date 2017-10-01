@@ -9,6 +9,7 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
+import mechanics.Worldbuilding.MapGen;
 import mechanics.Worldbuilding.Tile.*;
 
 public class WorldMap 
