@@ -23,6 +23,7 @@ public class Priest extends Player{
     	initMod = 0;
     	alive = true;
     	isDefending = false;
+    	weaponEquipped = catalog.weaponMap.get("nun chuka");
 	}
 	
 	public void PrayerOfBlessing(Player target){

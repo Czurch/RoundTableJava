@@ -22,6 +22,7 @@ public class Barbarian extends Player{
     	initMod = 0;
     	alive = true;
     	isDefending = false;
+    	weaponEquipped = catalog.weaponMap.get("hatchet");
 	}
 	
 	@Override 

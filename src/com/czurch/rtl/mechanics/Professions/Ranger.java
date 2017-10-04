@@ -20,6 +20,7 @@ public class Ranger extends Player{
     	initMod = 3;
     	alive = true;
     	isDefending = false;
+    	weaponEquipped = catalog.weaponMap.get("long bow");
 	}
 	
 }

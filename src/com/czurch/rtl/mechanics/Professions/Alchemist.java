@@ -17,6 +17,7 @@ public class Alchemist extends Player{
     	initMod = 0;
     	alive = true;
     	isDefending = false;
+    	weaponEquipped = catalog.weaponMap.get("rapier");
 	}
 	
 	//add in spell based on stone held

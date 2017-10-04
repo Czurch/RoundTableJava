@@ -21,6 +21,7 @@ public class Rogue extends Player{
     	initMod = 1;
     	alive = true;
     	isDefending = false;
+    	weaponEquipped = catalog.weaponMap.get("dagger");
 	}
 	
 	@Override

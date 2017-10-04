@@ -1,9 +1,12 @@
 package com.czurch.rtl.mechanics;
 
 import com.czurch.rtl.mechanics.Items.Weapon;
+import com.czurch.rtl.mechanics.Items.WeaponList;
 import com.czurch.rtl.mechanics.Player.profession;
 
 public class Character extends GameObject{
+	public WeaponList catalog = new WeaponList();
+	
 	//Base stats for player
 	protected String name;
 	protected profession job;

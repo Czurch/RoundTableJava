@@ -177,29 +177,42 @@ public class Player extends Character{
 	    
 		//The Character creation method
 		public Player createPlayer(){
+			
 			Player player = new Player();
+			profession p = profession.knight;
+			boolean professionNotSelected = true;
+			
 			System.out.println("Hello traveler.. what is your name?");			//Name your character
 			String name = keyboard.nextLine();
-			System.out.println("What class would you like to play?");			//Select your class
-			professionDialogue();
-			String choice = keyboard.nextLine();
-			choice = choice.toLowerCase();
-			profession p = profession.valueOf(choice);
+			
+			while(professionNotSelected)										//Select your class
+			{
+				System.out.println("What class would you like to play?");		
+				professionDialogue();
+				String choice = keyboard.nextLine();
+				choice = choice.toLowerCase();
+				try{
+					p = profession.valueOf(choice);
+					professionNotSelected = false;
+				}catch(IllegalArgumentException e) {
+		            
+		        }
+			}
 			switch(p){
 			case alchemist:
-			    player = new Alchemist(this.name); 
+			    player = new Alchemist(name); 
 			    break;
 			case barbarian:
-			    player = new Barbarian(this.name);
+			    player = new Barbarian(name);
 			    break;
 			case drunkard:
-			    player = new Drunkard(this.name);
+			    player = new Drunkard(name);
 			    break;
 			case knight:
-			    player = new Knight(this.name);
+			    player = new Knight(name);
 			    break;
 			case priest:
-			    player = new Priest(this.name);
+			    player = new Priest(name);
 			    break;
 			case ranger:
 			    player = new Ranger(this.name);
@@ -211,6 +224,7 @@ public class Player extends Character{
 			    player = new Scribe(name);
 			    break;
 			default:
+				System.out.println("I hit the default case");
 				break;
 			}
 			return player;

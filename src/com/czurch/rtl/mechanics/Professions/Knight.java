@@ -1,6 +1,5 @@
 package com.czurch.rtl.mechanics.Professions;
 import com.czurch.rtl.mechanics.*;
-import com.czurch.rtl.mechanics.Items.WeaponList;
 
 /*
  * The Knight
@@ -10,7 +9,6 @@ import com.czurch.rtl.mechanics.Items.WeaponList;
 */
 
 public class Knight extends Player {
-	WeaponList catalog = new WeaponList();
 	
 	public Knight(String nam){
 		name = nam;

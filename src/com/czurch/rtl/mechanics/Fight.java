@@ -31,16 +31,16 @@ public class Fight {
 	
 	//determines attack order and fights to the death
 	public void combatPhase(){
-		while(p.alive && e.alive){
+		while(p.isAlive() && e.isAlive()){
 			if(p.initiative >= e.initiative)
 			{
 				p.turn(e);
-				if(e.alive){
+				if(e.isAlive()){
 					e.Attack(p);
 				}
 			}else{
 				e.Attack(p);
-				if(p.alive)
+				if(p.isAlive())
 				{
 					p.turn(e);
 				}
