@@ -7,14 +7,14 @@ import org.newdawn.slick.opengl.Texture;
 import org.newdawn.slick.state.*;
 import org.newdawn.slick.util.BufferedImageUtil;
 
-import Level.Level;
+import com.czurch.rtl.Level.Level;
+import com.czurch.rtl.mechanics.Player;
+import com.czurch.rtl.mechanics.Worldbuilding.Cave;
+import com.czurch.rtl.mechanics.Worldbuilding.Cave.Coord;
+
 import block.Block;
 
 import java.awt.image.*;
-
-import mechanics.Player;
-import mechanics.Worldbuilding.Cave;
-import mechanics.Worldbuilding.Cave.Coord;
 
 public class Map extends BasicGameState {
 

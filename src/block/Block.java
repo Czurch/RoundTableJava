@@ -2,7 +2,7 @@ package block;
 
 import java.util.List;
 
-import mechanics.GameObject;
+import com.czurch.rtl.mechanics.GameObject;
 
 public class Block extends GameObject{
 	boolean isBlocking = false;
