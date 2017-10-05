@@ -1,5 +1,6 @@
 package com.czurch.rtl.mechanics;
 
+import com.czurch.rtl.mechanics.Items.Item;
 import com.czurch.rtl.mechanics.Items.Weapon;
 import com.czurch.rtl.mechanics.Items.WeaponList;
 import com.czurch.rtl.mechanics.Player.profession;
@@ -10,19 +11,23 @@ public class Character extends GameObject{
 	//Base stats for player
 	protected String name;
 	protected profession job;
-    protected int health 
+    public int health 
     ,maxHealth
     ,attack
     ,defence
     ,armor
     ,initiative
     ,initMod;
-    protected boolean alive;
+    public boolean alive;
     protected Weapon weaponEquipped;
+    public Item inventory[] = new Item[20];
     
     public Character()
     {
-    	
+    	for(int i = 0; i < inventory.length; i++)
+    	{
+    		inventory[i] = null;
+    	}
     }
     
     
@@ -74,5 +79,14 @@ public class Character extends GameObject{
     //return the character's name
     public String getName(){
     	return this.name; 
+    }
+    
+    public void showInventory(){
+    	for(int i = 0; i < inventory.length; i++)
+    	{
+    		if(inventory[i] != null){
+    			System.out.println("-"+ i + " " + inventory[i].name + "\n");
+    		}
+    	}
     }
 }

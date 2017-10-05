@@ -23,15 +23,11 @@ public class Weapon extends Item{
 		this.value = val;
 	}
 	
-	@Override
 	public int active() {
-		// TODO Auto-generated method stub
 		return coreMath.randomNumberBetween(minDmg, maxDmg);
 	}
 
-	@Override
 	public void passive() {
-		// TODO Auto-generated method stub
 		
 	}
 

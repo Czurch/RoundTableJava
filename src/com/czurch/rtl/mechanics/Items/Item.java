@@ -1,10 +1,7 @@
 package com.czurch.rtl.mechanics.Items;
 
 public abstract class Item {
+	public String name;
 	protected int value,
 	weight;
-
-	public abstract int active();
-
-	public abstract void passive();
 }

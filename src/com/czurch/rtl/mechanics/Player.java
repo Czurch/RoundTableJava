@@ -129,7 +129,7 @@ public class Player extends Character{
 	        	System.out.println("You lose " + damage + " health.");
 	        }
 	        if(this.health <= 0){
-	        	this.health -= damage;					//if the damage would kill, set alive to false.
+	        	//if the damage would kill, set alive to false.
 	        	this.alive = false;
 	        	System.out.println("RIP. You have died.");
 	        }
@@ -148,14 +148,19 @@ public class Player extends Character{
             while(noChoice){
             	System.out.println("attack or defend? ");				// get selection
             	String choice = scanner.nextLine();
-                if (choice.toLowerCase().equals("attack")){				// if attack Attack()
+            	choice.toLowerCase();
+                if (choice.equals("attack")){				// if attack Attack()
                 	this.Attack(target);
                     noChoice = false;
-                }else if (choice.toLowerCase().equals("defend")){		// if defend Defend()
+                }else if (choice.equals("defend")){		// if defend Defend()
                 	this.Defend();
                     noChoice = false;
+                }else if (choice.equals("item")){
+                	this.showInventory();
+                	noChoice = false;
                 }else{
-                	System.out.println("nochoice");
+                	System.out.println("That is not a valid choice. Please select one of the following:\n" +
+                					   "-attack\n-defend\n-item");
                     noChoice = true;
                 }
             }
