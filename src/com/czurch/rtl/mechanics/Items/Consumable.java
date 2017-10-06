@@ -13,8 +13,7 @@ public class Consumable extends Item {
 	init; 
 	boolean dead;
 	
-	public Consumable(Character usr,int heal, int hp, int atk, int def, int amr, int init, boolean dead){
-		this.user = usr;
+	public Consumable(String nom, int val, int wght, int heal, int hp, int atk, int def, int amr, int init, boolean dead){
 		this.heal = heal;
 		this.hp = hp; 
 		this.atk = atk;
@@ -24,8 +23,9 @@ public class Consumable extends Item {
 		this.dead = dead;
 	}
 	
-	public void active(int place)
+	public void active(int place, Character usr)
 	{
+		user = usr;
 	    user.health += heal;
 	    user.maxHealth += hp;
 	    user.attack += atk;
