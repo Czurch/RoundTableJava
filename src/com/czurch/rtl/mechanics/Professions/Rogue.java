@@ -35,7 +35,7 @@ public class Rogue extends Player{
         	int defRoll = coreMath.rollD20() + this.defence;
         	if(defRoll >= 20){
         		System.out.println("You deflect the enemy's attack back at him!");
-        		e.takeDamage(this, nmeATK);
+        		e.takeDamage(nmeATK);
         	}else if(defRoll > 10+nmeATK){
         		System.out.println("You manage to block all of the enemy's damage!");
         	}else{

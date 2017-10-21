@@ -40,11 +40,11 @@ public class Character extends GameObject{
     public void Attack(Character target){
     	int hit = this.weaponEquipped.active();
     	System.out.println(this.name + " strikes for "+ hit + " damage with it's " + this.weaponEquipped.name);
-    	target.takeDamage(this, hit);
+    	target.takeDamage(hit);
     }
 
 	//Causes enemy to lose health on attack
-    public void takeDamage(Character nme, int nmeATK){
+    public void takeDamage(int nmeATK){
         int damage = (nmeATK - this.defence);
         if(damage > 0){										
         	this.health -= damage;

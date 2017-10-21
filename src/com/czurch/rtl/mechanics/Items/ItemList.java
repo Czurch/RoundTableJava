@@ -10,6 +10,7 @@ public class ItemList {
 	public HashMap<String,Item> tier_5_items = new HashMap<String,Item>();
 	
 	public HashMap<String,Consumable> ConsumableMap = new HashMap<String,Consumable>();
+	public HashMap<String,Consumable> DamageMap = new HashMap<String,Consumable>();
 	
 	public ItemList()
 	{

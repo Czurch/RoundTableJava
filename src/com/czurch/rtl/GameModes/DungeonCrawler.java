@@ -38,7 +38,7 @@ public class DungeonCrawler {
 	public void introduction()
 	{
 		System.out.println("You enter the gates of the abandoned city..");
-		System.out.println("Beyond you lies what seems like a limitless expanse of dark alleys and crumbling ruins.\n" + 
+		System.out.println("Beyond you lies what seems like an endless expanse of dark alleys and crumbling ruins.\n" + 
 				"Surely, great evils await in the heart of the city.. But the rewards are sure to be even greater.\n\n");
 	}
 	
