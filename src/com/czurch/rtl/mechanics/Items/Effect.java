@@ -24,9 +24,11 @@ public class Effect {
 	}
 	public effectors effect;
 	public int mod;
+	public int time;
 	
-	public Effect(effectors effectToApply ,int modifier){
+	public Effect(effectors effectToApply ,int modifier, int time){
 		effect = effectToApply;
 		mod = modifier;
+		this.time = time;
 	}
 }

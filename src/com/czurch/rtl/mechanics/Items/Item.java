@@ -7,8 +7,8 @@ public abstract class Item {
 	protected int value,
 	weight;
 	
-	public effectors[] activeEffects = new effectors[5];
-	public effectors[] passiveEffects = new effectors[5];
+	public Effect[] activeEffects = new Effect[5];
+	public Effect[] passiveEffects = new Effect[5];
 	
 	Item(){
 		name = "placeholder";
@@ -16,7 +16,7 @@ public abstract class Item {
 		weight = 0;
 	}
 	
-	Item(String nom, int val, int wght, effectors[] ACTeffectors, effectors[] PSVeffectors)
+	Item(String nom, int val, int wght, Effect[] ACTeffectors, Effect[] PSVeffectors)
 	{
 		name = nom;
 		value = val;
@@ -32,7 +32,14 @@ public abstract class Item {
 	
 	public void Active(Character user)
 	{
-		//user.applyEffect()
+		for(int i = 0; i >=5; i++)
+		{
+			Effect e = activeEffects[i];
+			if(e != null)
+			{
+				user.addEffect(e, e.time);
+			}
+		}
 	}
 	
 	public void Passive()

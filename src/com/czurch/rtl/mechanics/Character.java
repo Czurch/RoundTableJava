@@ -1,8 +1,15 @@
 package com.czurch.rtl.mechanics;
 
+import com.czurch.rtl.mechanics.Items.Effect;
+import com.czurch.rtl.mechanics.Items.Effect.effectors;
 import com.czurch.rtl.mechanics.Items.Item;
 import com.czurch.rtl.mechanics.Items.Weapon;
 import com.czurch.rtl.mechanics.Items.WeaponList;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import com.czurch.rtl.mechanics.Player.profession;
 
 public class Character extends GameObject{
@@ -20,14 +27,13 @@ public class Character extends GameObject{
     ,initMod;
     public boolean alive;
     protected Weapon weaponEquipped;
-    public Item inventory[] = new Item[20];
+    public List<Item> inventory = new ArrayList<Item>();
+    int carry_capacity = 16;
+    public List<Effect> effects_list = new ArrayList<Effect>();
     
     public Character()
     {
-    	for(int i = 0; i < inventory.length; i++)
-    	{
-    		inventory[i] = null;
-    	}
+    	
     }
     
     
@@ -57,6 +63,78 @@ public class Character extends GameObject{
         }
     }
     
+    public void pickUp(Item i)
+    {
+    	if(inventory.size() <= carry_capacity)
+    	{
+    		inventory.add(i);
+    
+    	}
+    }
+    
+    public void addEffect(Effect x, int time)
+    {
+    	effects_list.add(x);
+    	this.applyEffect(x);
+    }
+    
+    public void applyEffect(Effect x)
+    {
+    	switch(x.effect)
+    	{
+    	case HEALING:
+    		health += x.mod;
+    		break;
+    	case VIGOR:
+    		maxHealth += x.mod;
+    		break;
+    	case LETHAL:
+    		attack += x.mod;
+    		break;
+    	case FORTITUDE:
+    		defence += x.mod;
+    		break;
+    	case ARMOR:
+    		armor += x.mod;
+    		break;
+    	case HASTE:
+    		initMod += x.mod;
+    		break;
+    	case DEATH:
+    		alive = false;
+    		break;
+    	case MIGHT:
+    		break;
+    	case AGILITY:
+    		break;
+    	case CONSTITUTION:
+    		break;
+    	case CLAIRVOYANCE:
+    		break;
+    	case MEDITATION:
+    		break;
+    	case KEEN_SENSES:
+    		break;
+    	}
+    	
+    	//subtract one from time value on the effect
+    	x.time -= 1;
+    	if(x.time == 0)
+    	{ 
+    		effects_list.remove(x);
+    	}
+    }
+    
+    //iterates through current status effects and applies their effects
+    public void applyAllEffects()
+    {
+    	for(Iterator<Effect> i = effects_list.iterator(); i.hasNext();){
+    		Effect x = i.next();
+    		this.applyEffect(x);
+    	}
+    }
+    
+    
     /*-----------------------------------
      *       GET / SET methods 
      * ----------------------------------
@@ -82,10 +160,11 @@ public class Character extends GameObject{
     }
     
     public void showInventory(){
-    	for(int i = 0; i < inventory.length; i++)
+    	for(Iterator<Item> i = inventory.iterator(); i.hasNext();)
     	{
-    		if(inventory[i] != null){
-    			System.out.println("-"+ i + " " + inventory[i].name + "\n");
+    		Item x = i.next();
+    		if(x != null){
+    			System.out.println("- " + x.name + "\n");
     		}
     	}
     }

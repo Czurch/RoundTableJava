@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 import com.czurch.rtl.mechanics.Player;
 import com.czurch.rtl.mechanics.coreMath;
+import com.czurch.rtl.mechanics.Items.ItemList;
 import com.czurch.rtl.mechanics.Professions.*;
 import com.czurch.rtl.mechanics.Enemy;
 import com.czurch.rtl.mechanics.EnemyList;
@@ -16,6 +17,7 @@ public class DungeonCrawler {
 	int totalEncounters = 0;
 	
 	public DungeonCrawler(){
+		ItemList item_map = new ItemList();
 		Player player = new Player();
 		player = player.createPlayer();						//create Player
 		player.statSumm();							//show a summary of their stats

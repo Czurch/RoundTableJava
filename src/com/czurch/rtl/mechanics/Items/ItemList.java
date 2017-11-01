@@ -2,6 +2,8 @@ package com.czurch.rtl.mechanics.Items;
 
 import java.util.HashMap;
 
+import com.czurch.rtl.mechanics.Items.Effect.effectors;
+
 public class ItemList {
 	public HashMap<String,Item> tier_1_items = new HashMap<String,Item>();
 	public HashMap<String,Item> tier_2_items = new HashMap<String,Item>();
@@ -25,6 +27,7 @@ public class ItemList {
 		ConsumableMap.put("handful of berries"	,new Consumable("handful of berries", 2		, 1		, 	1	, 	0	, 	0	, 	0	, 	0	, 	0	, 	false));
 		ConsumableMap.put("rotten meat"			,new Consumable("rotten meat"		, 2		, 1		,  -2	, 	0	, 	3	, 	0	, 	0	, 	0	, 	false));
 		
+		tier_1_items.put("health pot"			,new Item("health potion", 2, 1, {new Effect(HEALING ,6, 1)}, {});
 		//Populate the list of tier 1 items
 		tier_1_items.put("health potion"	, ConsumableMap.get("health potion"));
 		tier_1_items.put("yak milk"			, ConsumableMap.get("yak milk"));

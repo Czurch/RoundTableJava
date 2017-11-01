@@ -108,7 +108,6 @@ public class Player extends Character{
 	    }
 	    
 	   //Causes player to lose health on attack
-	    @Override
 	    public void takeDamage(Character e, int nmeATK){
 	    	int damage = nmeATK;
 	        if(this.isDefending)					//if player is defending
@@ -116,7 +115,7 @@ public class Player extends Character{
 	        	int defRoll = coreMath.rollD20() + this.defence;
 	        	if(defRoll >= 20){
 	        		System.out.println("You deflect the enemy's attack back at him");
-	        		e.takeDamage(this, nmeATK);
+	        		e.takeDamage(nmeATK);
 	        	}else if(defRoll > 10+nmeATK){
 	        		System.out.println("You manage to block all of the enemy's damage");
 	        	}else{
@@ -171,7 +170,7 @@ public class Player extends Character{
 	    	int hit = this.weaponEquipped.active();
 	    	this.isDefending = false;
 	    	System.out.println("You strike for "+ hit + " damage with your " + this.weaponEquipped.name);
-	    	target.takeDamage(this, hit);
+	    	target.takeDamage(hit);
 	    }
 	    
 	    //sets defend value to true
