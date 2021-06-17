@@ -15,8 +15,10 @@ public class EnemyList {
 	Random r = new Random();
 	WeaponList weapon_catalog;
 	
-	public HashMap<biome,HashMap<String,Enemy>> lookup = new HashMap<biome,HashMap<String,Enemy>>();//each terrain maps to list of enemies
-	public HashMap<String,Enemy> enemyMap = new HashMap<String,Enemy>();								//each enemy name is mapped to it's entry
+	// each terrain maps to list of enemies
+	// each enemy name is mapped to it's entry
+	public HashMap<biome,HashMap<String,Enemy>> lookup = new HashMap<biome,HashMap<String,Enemy>>();
+	public HashMap<String,Enemy> enemyMap = new HashMap<String,Enemy>();		
 	public HashMap<String,Enemy> plainsList = new HashMap<String,Enemy>();
 	public HashMap<String,Enemy> forestList = new HashMap<String,Enemy>();
 	public HashMap<String,Enemy> mountainList = new HashMap<String,Enemy>();
@@ -28,7 +30,8 @@ public class EnemyList {
 	
 	public EnemyList(){
 		weapon_catalog = new WeaponList();
-		//populate the directory
+		
+		// populate the directory
 		lookup.put(biome.grassland, plainsList);
 		lookup.put(biome.forest, forestList);
 		lookup.put(biome.mountain, mountainList);
@@ -38,9 +41,9 @@ public class EnemyList {
 		lookup.put(biome.tundra, tundraList);
 		lookup.put(biome.jungle, jungleList);
 		
-		//populate each terrain
+		// populate each terrain
 		
-		//Plains List								  [name]      [hp]  [atk] [def][armr] [init]            [weapon]
+		// Plains List								  [name]      [hp]  [atk] [def][armr] [init]            [weapon]
 		plainsList.put("filthy ruffian",new Enemy("Filthy Ruffian", 6, 	-2,    0,    0,    0,   weapon_catalog.weaponMap.get("dagger")));
 		plainsList.put("coyote", 		new Enemy("Coyote",			4, 	-3,    0,    0,    0,   new Weapon("claws", weaponType.one_handed, 1, 3, 10)));
 		plainsList.put("bandit",		new Enemy("Bandit",			8, 	-1,    0,    0,    0,   weapon_catalog.weaponMap.get("hand axe")));
@@ -56,10 +59,12 @@ public class EnemyList {
 		plainsList.put("elephant",new Enemy("Great Plains Elephant",16,  0,    0,    1,    0,   new Weapon("tusks", weaponType.one_handed, 4, 10, 10)));
 		plainsList.put("goblin king",   new Enemy("Goblin King", 	14,  2,    0,    1,    0,   weapon_catalog.weaponMap.get("glaive")));
 		plainsList.put("plainswalker",  new Enemy("The Plainswalker",12, 4,    0,    0,    4,   new Weapon("rapier", weaponType.one_handed, 2, 14, 10)));
-		plainsList.putAll(enemyMap); 		//put all enemies in the enemyMap
+		
+		// put all enemies in the enemyMap
+		plainsList.putAll(enemyMap); 
 	}
 	
-	//Randomly selects enemy from a location
+	// Randomly selects enemy from a location
 	public Enemy randomByLocation(biome area){
 		HashMap<String,Enemy> map = lookup.get(area);						//select the correct area list
 		keysAsArray = new ArrayList<String>(map.keySet());	//get the set of keys
@@ -68,6 +73,7 @@ public class EnemyList {
 		
 	}
 	
+	// Selects enemy by name
 	public Enemy selectByName(String nom){
 		if(enemyMap.containsKey(nom)){ 
 			return enemyMap.get(nom); 

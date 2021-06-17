@@ -8,7 +8,7 @@ import org.newdawn.slick.state.*;
 import org.newdawn.slick.util.BufferedImageUtil;
 
 import com.czurch.rtl.Level.Level;
-import com.czurch.rtl.mechanics.Player;
+import com.czurch.rtl.mechanics.GameObject;
 import com.czurch.rtl.mechanics.Worldbuilding.Cave;
 import com.czurch.rtl.mechanics.Worldbuilding.Cave.Coord;
 
@@ -24,7 +24,6 @@ public class Map extends BasicGameState {
 	int map_height 	= 	100;
 	Level level;
 	SpriteSheet sheet;
-	Player p;
 	
 	
 	Image tileset 		= null;
@@ -34,7 +33,7 @@ public class Map extends BasicGameState {
 	Image wallTile 		= null;
 	Image playerSprite 	= null;
 	Block currentBlock 	= null;
-	Player player		= null;
+	GameObject player	= null;
 	int p_pos_X, p_pos_Y;
 	
 	MapRenderer renderer;
@@ -55,7 +54,7 @@ public class Map extends BasicGameState {
 		currentBlock = level.tiles[p_pos_X][p_pos_Y];
 		System.out.println("Obstacle map initialized");
 		
-		player 			= new Player(currentBlock.getX(), currentBlock.getY(), 0, 1, 0, 0);
+		player 			= new GameObject(currentBlock.getX(), currentBlock.getY(), 0, 1, 0, 0);
 		
         mapImage = new Image(SIZE * TILE_SIZE, SIZE* TILE_SIZE);
         Graphics g = mapImage.getGraphics();

@@ -7,10 +7,11 @@ public class Alchemist extends Player{
 	int maxSpells = 2;
 	
 	public Alchemist(String nam){
+		super(9,12,10,15,14,11);
 		name = nam;
 		job = profession.alchemist;
-    	health = 20;
-    	maxHealth = 20;
+    	maxHealth = constitution + coreMath.randomNumberBetween(1, 6);
+    	health = maxHealth;
     	attack = 0;
     	defence = 0;
     	initiative = 0;

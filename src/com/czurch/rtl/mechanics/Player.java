@@ -48,14 +48,7 @@ public class Player extends Character{
 
 	    public Player(int x, int y, int rot, int sc, int sp, int dir)
 	    {
-			super(x, y, rot, sc, sp, dir);
-			Image tileset;
-			try {
-				tileset = new Image("res/DungeonCrawl_ProjectUtumnoTileset.png");
-				this.sprite = tileset.getSubImage(32, 992, 32, 32);
-			} catch (SlickException e) {
-				e.printStackTrace();
-			}
+			super(10, 10, 10, 10, 10, 10, 10);
 	    	
 	    	name = "Placeholder";
 	    	job = profession.knight;
@@ -71,14 +64,7 @@ public class Player extends Character{
 	    }
 	    
 	    public Player(String nam, int HP, int ATK, int DEF, int ARMR, int INIT, Weapon startWeapon, int x, int y, int rot, int sc, int sp, int dir){
-			super(x, y, rot, sc, sp, dir);
-			Image tileset;
-			try {
-				tileset = new Image("res/DungeonCrawl_ProjectUtumnoTileset.png");
-				this.sprite = tileset.getSubImage(32, 992, 32, 32);
-			} catch (SlickException e) {
-				e.printStackTrace();
-			}
+	    	super(10, 10, 10, 10, 10, 10, 10);
 	    	
 	    	name = nam;
 	    	job = profession.knight;
@@ -95,7 +81,7 @@ public class Player extends Character{
 	    }
 	   
 	    
-	    //Prints the summary of a players stats
+	    // Prints the summary of a players stats
 	    public void statSumm(){
 	    	System.out.println("-------------------------------------\n" +
 	    					   " NAME: " + this.name + "\n" +
@@ -107,35 +93,58 @@ public class Player extends Character{
 	    					   "--------------------------------------");
 	    }
 	    
-	   //Causes player to lose health on attack
-	    public void takeDamage(Character e, int nmeATK){
-	    	int damage = nmeATK;
-	        if(this.isDefending)					//if player is defending
+	   // Causes player to lose health on attack
+	    public void takeDamage(Character enemy, int nmeATK, int rollVsDEF){
+	    	int damage = nmeATK - this.armor;
+	    	if(rollVsDEF >= 20)																// if opponent rolls natural 20 it automatically hits
+	    	{
+	        	if(damage > 0)																// if [damage > 0] deal damage to health.
+		        { 						
+		        	this.health -= damage;
+		        	System.out.println("You lose " + damage + " health.");
+		        }
+	    	}
+	    	else if(this.isDefending)														// if player is defending
 	        {
 	        	int defRoll = coreMath.rollD20() + this.defence;
+	        	System.out.println("You roll to defend!");
+	        	System.out.println("You rolled " + defRoll);
+	        	
 	        	if(defRoll >= 20){
 	        		System.out.println("You deflect the enemy's attack back at him");
-	        		e.takeDamage(nmeATK);
-	        	}else if(defRoll > 10+nmeATK){
+	        		enemy.takeDamage(this, nmeATK, defRoll);
+	        	}
+	        	else if (defRoll > rollVsDEF)
+	        	{
 	        		System.out.println("You manage to block all of the enemy's damage");
-	        	}else{
-	        		damage = nmeATK - this.defence;
-	        		System.out.println("You were unable to block the damage and lose " + damage + " health.");
+	        	}
+	        	else
+	        	{
+	        		System.out.print("You are unable to block the damage");
+		        	if(damage > 0)															// if [damage > 0] deal damage to health.
+			        { 						
+			        	this.health -= damage;
+			        	System.out.println("You lose " + damage + " health.");
+			        }
 	        	}
 	        }
-	        else if(damage > 0){								//if [damage > 0] deal damage to health. 						
-	        	this.health -= damage;
-	        	System.out.println("You lose " + damage + " health.");
+	        else if(rollVsDEF > this.defence)											// if their roll beats your defenses
+	        {
+	        	if(damage > 0)															// if [damage > 0] deal damage to health.
+		        { 						
+		        	this.health -= damage;
+		        	System.out.println("You lose " + damage + " health.");
+		        }
 	        }
+	        
 	        if(this.health <= 0){
-	        	//if the damage would kill, set alive to false.
-	        	this.alive = false;
+	        	this.alive = false;														// if the damage would kill, set alive to false.
 	        	System.out.println("RIP. You have died.");
 	        }
 	    }
 	    
-	    //this determines what happens on a player's turn
-	    public void turn(Enemy target){
+	    // this determines what happens on a player's turn
+	    public void turn(Character target){
 	    	Scanner scanner = new Scanner( System.in );
 	    	// print("use and item? y / n")
 	        // if yes
@@ -143,43 +152,81 @@ public class Player extends Character{
 	        //     get selection
 	        //     use item
 	        // else
-	        boolean noChoice = true;
-            while(noChoice){
-            	System.out.println("attack or defend? ");				// get selection
+	        int action_points = 2;
+            while(action_points > 0){
+            	System.out.println("attack, defend, or item? ");				// get selection
             	String choice = scanner.nextLine();
             	choice.toLowerCase();
-                if (choice.equals("attack")){				// if attack Attack()
+                if (choice.equals("attack"))									// if attack Attack()
+                {				
                 	this.Attack(target);
-                    noChoice = false;
-                }else if (choice.equals("defend")){		// if defend Defend()
+                    action_points -= 2;
+                }
+                else if (choice.equals("defend"))								// if defend Defend()
+                {		
                 	this.Defend();
-                    noChoice = false;
-                }else if (choice.equals("item")){
+                	action_points -= 2;
+                }
+                else if (choice.equals("item"))								// if you want to use an item
+                {
                 	this.showInventory();
-                	noChoice = false;
-                }else{
+                	System.out.println("Type the name of the item you'd like to use or type \"back\"");
+                	choice = scanner.nextLine();
+                	if(!choice.equals("back"))
+                	{
+	                	for (Item i : this.inventory) {
+	                	    if (i.name.equals(choice)) 
+	                	    {
+	                	    	System.out.println("Would you like to use or throw " + choice);
+	                	    	choice = scanner.nextLine();
+	                	    	if(choice.equals("use"))
+	                	    	{
+	                	    		this.use(i);
+	                	    		action_points -= 1;
+	                	    	}
+	                	    	else if(choice.equals("throw"))
+	                	    	{
+	                	    		this.throwItem(i, target);
+	                	    		action_points -= 1;
+	                	    	}
+	                	        break;
+	                	    }
+	                	}
+                	}
+                }
+                else if(choice.equals("stats"))
+                {
+                	this.statSumm();
+                }
+                else
+                {
                 	System.out.println("That is not a valid choice. Please select one of the following:\n" +
-                					   "-attack\n-defend\n-item");
-                    noChoice = true;
+                					   "-attack\n-defend\n-item\n-stats");
                 }
             }
 	    }
 	    
-	    //Attacks target entity
-	    public void Attack(Enemy target){
-	    	int hit = this.weaponEquipped.active();
+	    // Attacks target entity
+	    @Override
+	    public void Attack(Character target){
 	    	this.isDefending = false;
+	    	
+	    	System.out.println("rolling a D20 vs your opponents Defense");
+	    	int rollVsDEF = coreMath.rollD20();												// roll vs enemy def
+	    	System.out.println("You rolled a " + rollVsDEF);
+	    	
+	    	int hit = this.weaponEquipped.active() + this.attack;
 	    	System.out.println("You strike for "+ hit + " damage with your " + this.weaponEquipped.name);
-	    	target.takeDamage(hit);
+	    	target.takeDamage(this, hit, rollVsDEF);
 	    }
 	    
-	    //sets defend value to true
+	    // sets defend value to true
 	    public void Defend(){
 	    	this.isDefending = true;
 	    	
 	    }
 	    
-		//The Character creation method
+		// The Character creation method
 		public Player createPlayer(){
 			
 			Player player = new Player();
@@ -219,7 +266,7 @@ public class Player extends Character{
 			    player = new Priest(name);
 			    break;
 			case ranger:
-			    player = new Ranger(this.name);
+			    player = new Ranger(name);
 			    break;
 			case rogue: 
 			    player = new Rogue(name);

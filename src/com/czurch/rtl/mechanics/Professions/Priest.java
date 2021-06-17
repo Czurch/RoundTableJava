@@ -13,10 +13,11 @@ public class Priest extends Player{
 	int MaxPrayers = 2;			//max prayers the priest may use
 	
 	public Priest(String nam){
+		super(10,12,13,12,14,13);
 		name = nam;
 		job = profession.priest;
-    	health = 20;
-    	maxHealth = 20;
+    	maxHealth = constitution + coreMath.randomNumberBetween(1, 6);
+    	health = maxHealth;
     	attack = 0;
     	defence = 0;
     	initiative = 0;
@@ -29,7 +30,7 @@ public class Priest extends Player{
 	public void PrayerOfBlessing(Player target){
 		int healAmount = coreMath.rollD6();
 		System.out.println("Your god has granted " + 
-							target.getName() + 
+							target.name + 
 							" with " +
 							healAmount +
 							" healing");		

@@ -20,7 +20,9 @@ public class Tile {
     	ocean,
     	tundra,
     	jungle,
-    	mire
+    	mire,
+    	water,
+    	empty
     }
     
     byte resource;
@@ -36,7 +38,11 @@ public class Tile {
 	public safety_rating rating;
 	public biome terrain;
 	public Tile n_neighbor;
+	public Tile ne_neighbor;
+	public Tile nw_neighbor;
 	public Tile s_neighbor;
+	public Tile se_neighbor;
+	public Tile sw_neighbor;
 	public Tile e_neighbor;
 	public Tile w_neighbor;
 	
@@ -51,6 +57,18 @@ public class Tile {
 	{
 		n_neighbor = north;
 		s_neighbor = south;
+		e_neighbor = east;
+		w_neighbor = west;
+	}
+	public void setNeighbors(Tile north, Tile northeast, Tile northwest, Tile south, 
+							 Tile southeast, Tile southwest, Tile east, Tile west)
+	{
+		n_neighbor = north;
+		ne_neighbor = northeast;
+		nw_neighbor = northwest;
+		s_neighbor = south;
+		se_neighbor = southeast;
+		sw_neighbor = southwest;
 		e_neighbor = east;
 		w_neighbor = west;
 	}

@@ -9,6 +9,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="miglayout15-swing.jar" sourcepath="miglayout-src.zip"/>
 	<classpathentry kind="lib" path="lib/lwjgl.jar"/>
-	<classpathentry kind="lib" path="lib/slick.jar"/>
+	<classpathentry kind="lib" path="lib/slick.jar" sourcepath="lib/lwjgl.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

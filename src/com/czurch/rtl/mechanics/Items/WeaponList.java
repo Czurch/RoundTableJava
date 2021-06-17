@@ -15,6 +15,8 @@ public class WeaponList {
 	public HashMap<String,Weapon> weaponMap = new HashMap<String,Weapon>();
 	
 	public WeaponList(){
+		weaponMap.put("bare hands", new Weapon("bare hands", weaponType.two_handed, 1, 2, 0));
+		
 		//swords
 		weaponMap.put("short sword", new Weapon("short sword", weaponType.one_handed, 3, 7, 10));
 		weaponMap.put("dagger", 	new Weapon("dagger", weaponType.one_handed, 1, 4, 10));
@@ -37,6 +39,7 @@ public class WeaponList {
 		weaponMap.put("morning star", new Weapon("great axe", weaponType.one_handed, 2, 7, 10));
 		weaponMap.put("spike hammer", new Weapon("spike hammer", weaponType.one_handed, 2, 9, 10));
 		weaponMap.put("maul", new Weapon("maul", weaponType.one_handed, 3, 17, 10));
+		weaponMap.put("great club", new Weapon("great club", weaponType.one_handed, 9, 30, 10));
 		//flails
 		weaponMap.put("nun chuk", new Weapon("nun chuka", weaponType.one_handed, 1, 5, 10));
 		weaponMap.put("ball and chain", new Weapon("ball and chain", weaponType.one_handed, 2, 6, 10));

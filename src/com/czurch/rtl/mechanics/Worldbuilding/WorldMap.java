@@ -14,8 +14,8 @@ import com.czurch.rtl.mechanics.Worldbuilding.Tile.*;
 
 public class WorldMap 
 {	
-	public static int WORLD_HEIGHT = 1024;
-	public static int WORLD_WIDTH = 1024;
+	public static int WORLD_HEIGHT = 512;
+	public static int WORLD_WIDTH = 512;
 	public static int EQUATOR = WORLD_HEIGHT/2;
 	public static int TROPIC = (EQUATOR)/100 * 30;
 	public static int SUB_TROPIC = (EQUATOR)/100 * 50;
@@ -33,8 +33,9 @@ public class WorldMap
 	public static int TUNDRA_COLOR		= 0xCDD5C5;
 	public static int JUNGLE_COLOR		= 0x3A5534;
 	public static int MIRE_COLOR		= 0xA78774;
+	public static int TREASURE_COLOR    = 0xFFF600;
 	
-	Tile[][] world_map = new Tile[(WORLD_HEIGHT+1)][(WORLD_WIDTH+1)];
+	Tile[][] world_map = new Tile[(WORLD_WIDTH)][(WORLD_HEIGHT)];
 	
 	public byte resource_map[][];
 	// Resource Map Catalog
@@ -51,6 +52,11 @@ public class WorldMap
 		generate_tileset();
 		//SimplexTerrain(2);
 		FractalTerrain();
+		//initialize all water and mountain tiles
+		determine_water_n_mountains();
+		//draw rivers towards oceans
+		create_rivers();
+		//seed and grow biomes
 		create_climates();
 	}
 	
@@ -62,7 +68,7 @@ public class WorldMap
 		{			
 			for(int y = 0; y < WORLD_HEIGHT; y++)
 			{
-				this.world_map[y][x] = new Tile(x,y,safety_rating.peaceful, biome.grassland);
+				this.world_map[x][y] = new Tile(x,y,safety_rating.peaceful, biome.empty);
 			}
 		}
 		determine_neighbors();
@@ -79,47 +85,109 @@ public class WorldMap
 				if(x == 0)
 				{
 					if(y == 0)
+					{										
+						this.world_map[x][y].setNeighbors(world_map[x][y+1],								//north
+															world_map[x+1][y+1],							//northeast
+															world_map[WORLD_WIDTH-1][y+1],					//northwest
+															world_map[y_neighbor_calc(x)][y],				//south
+															world_map[y_neighbor_calc(x+1)][y],				//southeast
+															world_map[y_neighbor_calc(WORLD_WIDTH-1)][y],	//southwest
+															world_map[x+1][y],								//east
+															world_map[WORLD_WIDTH-1][y]);					//west
+					}	
+					else if(y == WORLD_HEIGHT-1)
 					{
-						this.world_map[x][y].setNeighbors(world_map[x][y+1], world_map[y_neighbor_calc(x)][y], world_map[x+1][y], world_map[WORLD_WIDTH][y]);
-					}
-					else if(y == WORLD_HEIGHT)
-					{
-						this.world_map[x][y].setNeighbors(world_map[y_neighbor_calc(x)][y+1], world_map[x][y-1], world_map[x+1][y], world_map[WORLD_WIDTH][y]);
+						this.world_map[x][y].setNeighbors(world_map[y_neighbor_calc(x)][y],
+															world_map[y_neighbor_calc(x+1)][y], 
+															world_map[y_neighbor_calc(WORLD_WIDTH-1)][y], 
+															world_map[x][y-1],
+															world_map[x+1][y-1], 
+															world_map[WORLD_WIDTH-1][y-1], 
+															world_map[x+1][y], 
+															world_map[WORLD_WIDTH-1][y]);
 					}
 					else
 					{
-						this.world_map[x][y].setNeighbors(world_map[x][y+1], world_map[x][y-1], world_map[x+1][y], world_map[WORLD_WIDTH][y]);
+						this.world_map[x][y].setNeighbors(world_map[x][y+1],
+															world_map[x+1][y+1],
+															world_map[WORLD_WIDTH-1][y+1],
+															world_map[x][y-1],
+															world_map[x+1][y-1],
+															world_map[WORLD_WIDTH-1][y-1],
+															world_map[x+1][y],
+															world_map[WORLD_WIDTH-1][y]);
 					}
 				}
-				else if(x == WORLD_WIDTH)
+				else if(x == WORLD_WIDTH-1)
 				{
 					if(y == 0)
 					{
-						this.world_map[x][y].setNeighbors(world_map[x][y+1], world_map[y_neighbor_calc(x)][y], world_map[0][y], world_map[x-1][y]);
+						this.world_map[x][y].setNeighbors(world_map[x][y+1],
+															world_map[0][y+1],
+															world_map[x-1][y+1],
+															world_map[y_neighbor_calc(x)][y],
+															world_map[y_neighbor_calc(0)][y],
+															world_map[y_neighbor_calc(x-1)][y],
+															world_map[0][y],
+															world_map[x-1][y]);
 					}
-					else if(y == WORLD_HEIGHT)
+					else if(y == WORLD_HEIGHT-1)
 					{
-						this.world_map[x][y].setNeighbors(world_map[y_neighbor_calc(x)][y], world_map[x][y-1], world_map[0][y], world_map[x-1][y]);
+						this.world_map[x][y].setNeighbors(world_map[y_neighbor_calc(x)][y],
+															world_map[y_neighbor_calc(0)][y],
+															world_map[y_neighbor_calc(x-1)][y],
+															world_map[x][y-1],
+															world_map[0][y-1],
+															world_map[x-1][y-1],
+															world_map[0][y],
+															world_map[x-1][y]);
 					}
 					else
 					{
-						this.world_map[x][y].setNeighbors(world_map[x][y+1], world_map[x][y-1], world_map[0][y], world_map[x-1][y]);
-					}
-					
+						this.world_map[x][y].setNeighbors(world_map[x][y+1],
+															world_map[0][y+1],
+															world_map[x-1][y+1],
+															world_map[x][y-1],
+															world_map[0][y-1],
+															world_map[x-1][y-1],
+															world_map[0][y],
+															world_map[x-1][y]);
+					}			
 				}
 				else
 				{
 					if(y == 0)
 					{
-						this.world_map[x][y].setNeighbors(world_map[x][y+1], world_map[y_neighbor_calc(x)][y], world_map[x+1][y], world_map[x-1][y]);
+						this.world_map[x][y].setNeighbors(world_map[x][y+1],
+															world_map[x+1][y+1],
+															world_map[x-1][y+1],
+															world_map[y_neighbor_calc(x)][y],
+															world_map[y_neighbor_calc(x+1)][y],
+															world_map[y_neighbor_calc(x-1)][y],
+															world_map[x+1][y],
+															world_map[x-1][y]);
 					}
-					else if(y == WORLD_HEIGHT)
+					else if(y == WORLD_HEIGHT-1)
 					{
-						this.world_map[x][y].setNeighbors(world_map[y_neighbor_calc(x)][y], world_map[x][y-1], world_map[x+1][y], world_map[x-1][y]);
+						this.world_map[x][y].setNeighbors(world_map[y_neighbor_calc(x)][y],
+															world_map[y_neighbor_calc(x+1)][y],
+															world_map[y_neighbor_calc(x-1)][y],
+															world_map[x][y-1],
+															world_map[x+1][y-1],
+															world_map[x-1][y-1],
+															world_map[x+1][y],
+															world_map[x-1][y]);
 					}
 					else
 					{
-						this.world_map[x][y].setNeighbors(world_map[x][y+1], world_map[x][y-1], world_map[x+1][y], world_map[x-1][y]);
+						this.world_map[x][y].setNeighbors(world_map[x][y+1],
+															world_map[x+1][y+1],
+															world_map[x-1][y+1],
+															world_map[x][y-1],
+															world_map[x+1][y-1],
+															world_map[x-1][y-1],
+															world_map[x+1][y],
+															world_map[x-1][y]);
 					}
 				}
 			}// end y for loop
@@ -130,7 +198,7 @@ public class WorldMap
 	// INFO:	 jumps exactly halfway around the world
 	public int y_neighbor_calc(int x)
 	{
-		return (x + (WORLD_WIDTH/2)) % WORLD_WIDTH;
+		return (x + (WORLD_WIDTH/2)) % (WORLD_WIDTH-1);
 	}
 	
 	// FUNCTION: display_height_map
@@ -172,14 +240,18 @@ public class WorldMap
 	
 	// FUNCTION: display_real_map
 	// INFO:	 prints out a primitive version of the map
-	public void display_real_map()
+	public BufferedImage display_real_map()
 	{
 		BufferedImage img = new BufferedImage(WORLD_WIDTH, WORLD_HEIGHT, BufferedImage.TYPE_INT_RGB);
 		int[] pixels = new int[WORLD_WIDTH * WORLD_HEIGHT];
-		for (int y = 0; y < WORLD_HEIGHT; y++) {
-			for (int x = 0; x < WORLD_WIDTH; x++) {
+		for (int x = 0; x < WORLD_WIDTH; x++) {
+			for (int y = 0; y < WORLD_HEIGHT; y++) {
 				int i = x + y * WORLD_WIDTH;
 				if(this.world_map[x][y].terrain == biome.ocean)
+				{				
+					pixels[i] = OCEAN_COLOR;
+				}
+				else if(this.world_map[x][y].terrain == biome.water)
 				{				
 					pixels[i] = OCEAN_COLOR;
 				}
@@ -215,14 +287,20 @@ public class WorldMap
 				{
 					pixels[i] = MIRE_COLOR;
 				}
-				else
+				else if(this.world_map[x][y].terrain == biome.jungle)
 				{
 					pixels[i] = JUNGLE_COLOR;
+				}
+				else
+				{
+					pixels[i] = TREASURE_COLOR;
 				}
 			}
 		}
 		img.setRGB(0, 0, WORLD_WIDTH, WORLD_HEIGHT, pixels, 0, WORLD_WIDTH);
-		JOptionPane.showMessageDialog(null, null, "Another", JOptionPane.YES_NO_OPTION, new ImageIcon(img.getScaledInstance(WORLD_WIDTH, WORLD_HEIGHT, Image.SCALE_AREA_AVERAGING)));
+		
+		return img;
+		//JOptionPane.showMessageDialog(null, null, "Another", JOptionPane.YES_OPTION, new ImageIcon(img.getScaledInstance(WORLD_WIDTH, WORLD_HEIGHT, Image.SCALE_AREA_AVERAGING)));
 	}
 	
 	// FUNCTION: display_map_values
@@ -253,11 +331,104 @@ public class WorldMap
 				world_map[x][y].weight = (float) ((float)generation1.sample(x,y) - (generation2.sample(x,y)*0.5));
 			}
 		}
+		for (int y = 0; y < WORLD_HEIGHT; y++) 
+		{
+			for (int x = 0; x < WORLD_WIDTH; x++) 
+			{
+				if(world_map[x][y].weight > 0.9)
+					world_map[x][y].weight -= (Math.random() % 0.5);
+			}
+		}
 	}
 	
 	// FUNCTION: create_climates
-	// INFO:	 creates climates and determines biome of each tile
+	// INFO:	 creates climates by seeding the world and allowing them to grow
 	public void create_climates()
+	{
+		Random rand = new Random();
+		boolean biomes_need_generation = true;
+		
+		//seed world with random biomes
+		for(int i=0; i<2000; i++)
+		{
+			int temp_x = rand.nextInt(WORLD_WIDTH);
+			int temp_y = rand.nextInt(WORLD_HEIGHT);
+			while(world_map[temp_x][temp_y].terrain == biome.ocean ||
+			      world_map[temp_x][temp_y].terrain == biome.mountain)
+			{
+				temp_x = rand.nextInt(WORLD_WIDTH);
+				temp_y = rand.nextInt(WORLD_HEIGHT);
+			}
+				
+			world_map[temp_x][temp_y].terrain = determine_biome(world_map[temp_x][temp_y].weight, Math.abs(EQUATOR - temp_y));
+		}
+		
+		int total_retries = 0;
+		while(biomes_need_generation)
+		{
+			total_retries++;
+			//biomes_need_generation = false;
+			
+			Tile[][] nextGen = new Tile[(WORLD_HEIGHT)][(WORLD_WIDTH)];
+			nextGen = world_map.clone();
+			
+			for (int y = 0; y < WORLD_HEIGHT; y++) 
+			{
+				for (int x = 0; x < WORLD_WIDTH; x++) 
+				{
+					Tile current_tile = world_map[x][y];
+					Tile nextGen_tile = nextGen[x][y];
+					if(current_tile.terrain != biome.empty &&
+					   current_tile.terrain != biome.ocean &&
+					   current_tile.terrain != biome.mountain)
+					{
+						if(current_tile.e_neighbor.terrain != biome.ocean &&
+						   current_tile.e_neighbor.terrain != biome.mountain)
+						{
+							if((int)(Math.random() * 100) + 1 > 80)
+								nextGen_tile.e_neighbor.terrain = current_tile.terrain;
+						}
+					    
+						if(current_tile.w_neighbor.terrain != biome.ocean &&
+						   current_tile.w_neighbor.terrain != biome.mountain)
+						{
+							if((int)(Math.random() * 100) + 1 > 80)
+								nextGen_tile.w_neighbor.terrain = current_tile.terrain;							
+						}
+						
+						if(current_tile.s_neighbor.terrain != biome.ocean &&
+						   current_tile.s_neighbor.terrain != biome.mountain)
+						{
+							if((int)(Math.random() * 100) + 1 > 80)
+								nextGen_tile.s_neighbor.terrain = current_tile.terrain;							
+						}
+						
+						if(current_tile.n_neighbor.terrain != biome.ocean &&
+						   current_tile.n_neighbor.terrain != biome.mountain)
+						{
+							if((int)(Math.random() * 100) + 1 > 80)
+								nextGen_tile.n_neighbor.terrain = current_tile.terrain;							
+						}
+					}
+					else
+					{
+						biomes_need_generation = true;
+						if(total_retries > 100)
+						{
+							biomes_need_generation = false;
+						}
+						continue;
+					}
+				}
+			}
+			world_map = nextGen;
+			//display_real_map();
+		}
+	}
+	
+	// FUNCTION: create_climates
+	// INFO:	 creates climates and determines biome of each tile completely at random
+	public void full_random_climates()
 	{
 		for (int y = 0; y < WORLD_HEIGHT; y++) 
 		{
@@ -265,6 +436,131 @@ public class WorldMap
 			{
 				world_map[x][y].terrain = determine_biome(world_map[x][y].weight, Math.abs(EQUATOR - y));
 			}
+		}
+	}
+	
+	// FUNCTION: determine_water_n_mountains
+	// INFO:	 sets all tiles below sea-level to water
+	//           sets all tiles high enough to mountain
+	public void determine_water_n_mountains()
+	{
+		//initialize all water and mountain tiles
+		for (int y = 0; y < WORLD_HEIGHT; y++) 
+		{
+			for (int x = 0; x < WORLD_WIDTH; x++) 
+			{
+				if(world_map[x][y].weight <= 0) world_map[x][y].terrain = biome.ocean;			//   sea level -- < 0
+				else if(world_map[x][y].weight > 0.9) world_map[x][y].terrain = biome.mountain;
+				else world_map[x][y].terrain = biome.empty;
+			}
+		}
+	}
+	
+	// FUNCTION: create_rivers
+	// INFO:	 creates rivers from the mountains to the oceans
+	public void create_rivers()
+	{
+		Random rand = new Random();
+		Tile current_tile = new Tile(0,0, safety_rating.peaceful, biome.empty);
+		Tile current_lowest = new Tile(0,0, safety_rating.peaceful, biome.empty);
+		//seed world with 150 random river starts 
+		for(int i=0; i<150; i++)
+		{
+			int temp_x = rand.nextInt(WORLD_WIDTH);
+			int temp_y = rand.nextInt(WORLD_HEIGHT);
+			while(world_map[temp_x][temp_y].weight > 0.97)
+			{
+				//continue randomizing until we find a mountain
+				temp_x = rand.nextInt(WORLD_WIDTH);
+				temp_y = rand.nextInt(WORLD_HEIGHT);
+			}
+			
+			current_tile = world_map[temp_x][temp_y];
+			
+			for(int j=0; j<20; j++)
+			{
+				//get lowest neighbor
+				if(current_tile.e_neighbor.terrain != biome.water ||
+				   current_tile.e_neighbor.terrain == biome.ocean)
+				{
+					if(current_tile.e_neighbor.terrain == biome.ocean)
+						break;
+				    else
+						current_lowest = current_tile.e_neighbor;
+				}
+				else
+				{
+					current_lowest = current_tile.w_neighbor;
+				}
+				
+				if(current_tile.ne_neighbor.weight < current_lowest.weight &&
+				   (current_tile.ne_neighbor.terrain != biome.water ||
+				   current_tile.ne_neighbor.terrain == biome.ocean))
+				{
+					if(current_tile.ne_neighbor.terrain == biome.ocean)
+						break;
+					else
+						current_lowest = current_tile.ne_neighbor;
+				}
+				if(current_tile.nw_neighbor.weight < current_lowest.weight &&
+				   (current_tile.nw_neighbor.terrain != biome.water ||
+				   current_tile.nw_neighbor.terrain == biome.ocean))
+				{
+					if(current_tile.nw_neighbor.terrain == biome.ocean)
+						break;
+					else
+						current_lowest = current_tile.nw_neighbor;
+				}
+				if(current_tile.se_neighbor.weight < current_lowest.weight &&
+				   (current_tile.se_neighbor.terrain != biome.water ||
+				   current_tile.se_neighbor.terrain == biome.ocean))
+				{
+					if(current_tile.se_neighbor.terrain == biome.ocean)
+						break;
+					else
+						current_lowest = current_tile.se_neighbor;
+				}
+				if(current_tile.sw_neighbor.weight < current_lowest.weight &&
+				   (current_tile.sw_neighbor.terrain != biome.water ||
+				   current_tile.sw_neighbor.terrain == biome.ocean))
+				{
+					if(current_tile.sw_neighbor.terrain == biome.ocean)
+						break;
+					else
+						current_lowest = current_tile.sw_neighbor;
+				}
+				if(current_tile.w_neighbor.weight < current_lowest.weight &&
+				   (current_tile.w_neighbor.terrain != biome.water ||
+				   current_tile.w_neighbor.terrain == biome.ocean))
+				{
+					if(current_tile.w_neighbor.terrain == biome.ocean)
+						break;
+					else
+						current_lowest = current_tile.w_neighbor;
+				}
+				if(current_tile.n_neighbor.weight < current_lowest.weight &&
+				   (current_tile.n_neighbor.terrain != biome.water ||
+				   current_tile.n_neighbor.terrain == biome.ocean))
+				{
+					if(current_tile.n_neighbor.terrain == biome.ocean)
+						break;
+					else
+						current_lowest = current_tile.n_neighbor;
+				}
+				if(current_tile.s_neighbor.weight < current_lowest.weight &&
+				   (current_tile.s_neighbor.terrain != biome.water ||
+				   current_tile.s_neighbor.terrain == biome.ocean))
+				{
+					if(current_tile.s_neighbor.terrain == biome.ocean)
+						break;
+					else
+						current_lowest = current_tile.s_neighbor;
+				}
+				
+				current_tile = current_lowest;
+				current_tile.terrain = biome.water;
+			}
+			
 		}
 	}
 	

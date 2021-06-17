@@ -1,49 +1,92 @@
 package com.czurch.rtl.mechanics.Items;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import com.czurch.rtl.mechanics.Character;
+import com.czurch.rtl.mechanics.coreMath;
 import com.czurch.rtl.mechanics.Items.Effect.effectors;
 
-public abstract class Item {
+public class Item {
 	public String name;
-	protected int value,
+	public String description;
+	public int value,
 	weight;
 	
-	public Effect[] activeEffects = new Effect[5];
-	public Effect[] passiveEffects = new Effect[5];
+	public List<Effect> activeEffects = new ArrayList<Effect>();
+	public List<Effect> passiveEffects = new ArrayList<Effect>();
+	public boolean 		passiveApplied;
 	
 	Item(){
 		name = "placeholder";
 		value = 0;
 		weight = 0;
+		passiveApplied = false;
 	}
 	
-	Item(String nom, int val, int wght, Effect[] ACTeffectors, Effect[] PSVeffectors)
+	Item(String nom, int val, int wght)
 	{
 		name = nom;
 		value = val;
 		weight = wght;
-		activeEffects = ACTeffectors;
-		passiveEffects = PSVeffectors;
+		passiveApplied = false;
 	}
-	
-	public void Throw(Character target)
+
+	public void Throw(Character user, Character target)
 	{
-		target.takeDamage(weight);
+    	System.out.println("rolling a D20 vs your opponents Defense");
+    	int rollVsDEF = coreMath.rollD20();												// roll vs enemy def
+    	System.out.println("You rolled a " + rollVsDEF);
+    	
+		target.takeDamage(user, weight, rollVsDEF);
+		user.remove(this);
 	}
 	
 	public void Active(Character user)
 	{
-		for(int i = 0; i >=5; i++)
+		for(Iterator<Effect> i = activeEffects.iterator(); i.hasNext();)
+    	{
+    		Effect e = i.next();
+    		if(e != null){
+    			user.addEffect(e);
+    		}
+    	}
+		user.remove(this);
+	}
+	
+	public void Passive(Character user)
+	{
+		if(passiveApplied = false)
 		{
-			Effect e = activeEffects[i];
-			if(e != null)
-			{
-				user.addEffect(e, e.time);
-			}
+			for(Iterator<Effect> i = passiveEffects.iterator(); i.hasNext();)
+	    	{
+	    		Effect e = i.next();
+	    		if(e != null){
+	    			user.addBuff(e);
+	    			passiveApplied = true;
+	    		}
+	    	}
+		}
+		else
+		{
+			for(Iterator<Effect> i = passiveEffects.iterator(); i.hasNext();)
+	    	{
+	    		Effect e = i.next();
+	    		if(e != null){
+	    			user.removeBuff(e);
+	    			passiveApplied = false;
+	    		}
+	    	}
 		}
 	}
 	
-	public void Passive()
+	public void addActive(effectors effectToApply ,int modifier, int time)
 	{
-		
+		activeEffects.add(new Effect(effectToApply ,modifier,time));
+	}
+	
+	public void addPassive(effectors effectToApply ,int modifier, int time)
+	{
+		passiveEffects.add(new Effect(effectToApply, modifier, time));
 	}
 }

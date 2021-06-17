@@ -5,18 +5,27 @@ import com.czurch.rtl.mechanics.Enemy;
 
 public class Fight {
 	public Player p;
-	public Enemy e;
+	public Character e;
 	
-	public Fight(Player ply, Enemy nme){
+	/* A typical Fight is between the player and his enemies 
+	 * NPC's may have combat with each other but it will be settled more simply
+	 */
+	public Fight(Player ply, Character nme){
 		p = ply;
 		e = nme;
 		
-		startPhase();
+		initiativeRoll();
+		
 		combatPhase();
+		if(e.isAlive() == false)
+		{
+			e.showInventory();
+			p.loot(e);
+		}
 	}
 	
 	//Rolls for initiative
-	public void startPhase(){
+	public void initiativeRoll(){
 		this.p.rollInit();
 		this.e.rollInit();
 		System.out.println("Your initiative roll was " + p.initiative);
@@ -36,10 +45,19 @@ public class Fight {
 			{
 				p.turn(e);
 				if(e.isAlive()){
+					
 					e.Attack(p);
+					
+					try{System.in.read();}
+					catch(Exception e){}
 				}
 			}else{
+				
 				e.Attack(p);
+				
+				try{System.in.read();}
+				catch(Exception e){}
+				
 				if(p.isAlive())
 				{
 					p.turn(e);

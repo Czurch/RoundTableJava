@@ -10,10 +10,11 @@ import com.czurch.rtl.mechanics.*;
 public class Ranger extends Player{
 
 	public Ranger(String nam){
+		super(13,14,11,11,14,9);
 		name = nam;
 		job = profession.ranger;
-    	health = 20;
-    	maxHealth = 20;
+    	maxHealth = constitution + coreMath.randomNumberBetween(1, 6);
+    	health = maxHealth;
     	attack = 1;
     	defence = 0;
     	initiative = 0;

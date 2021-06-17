@@ -11,10 +11,11 @@ import com.czurch.rtl.mechanics.*;
 public class Knight extends Player {
 	
 	public Knight(String nam){
+		super(14,10,14,10,12,13);
 		name = nam;
 		job = profession.knight;
-    	health = 20;
-    	maxHealth = 20;
+    	maxHealth = constitution + coreMath.randomNumberBetween(1, 6);
+    	health = maxHealth;
     	attack = 1;
     	defence = 1;
     	initiative = 0;
