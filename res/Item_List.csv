@@ -1,0 +1,29 @@
+Potion,health potion,A small potion bottle filled with a swirling crimson solution.,1,5,1,HLTH,6,1,,,
+Consumable,yak milk,Drink this if you want to grow up big and strong.,1,2,1,HLTH,4,1,VGR,1,1
+Consumable,loaf of bread,A hearty loaf of bread.,1,2,1,HLTH,3,1,,,
+Consumable,fresh meat,A small cut of some creature's meat.,1,2,1,HLTH,3,1,,,
+Potion,vial of health,A small glass vial filled with a crimson fluid.,1,2,1,HLTH,2,1,,,
+Consumable,berries,This handful of berries would make a good snack.,1,2,1,HLTH,2,1,,,
+Consumable,rotten meat,This slice of meat smells disgusting.,1,2,1,HLTH,-2,1,DAM,3,1
+General,healing salve,Apply directly to wound, if it burns, that means it's working.,1,4,1,HLTH,2,3,,,
+General,scroll of regeneration,A golden light shimmers around the edges of the thick paper.,1,1,1,HLTH,10,1,,,
+General,cure powder,The fine, sweet smelling powder has been used for generations for small wounds.,1,3,1,HLTH,3,1,,,
+Consumable,goat cheese,Like regular cheese, but gamey.,1,2,1,HLTH,2,1,,,
+Consumable,fancy cake,Soft and delicious, with the perfect amount of icing.,1,5,3,HLTH,4,1,,,
+Consumable,warm pie,Freshly swipped from a windowsill.,1,3,2,HLTH,3,1,,,
+Consumable,fresh apple,Morning dew still beads on the crimson red skin of this fruit.,1,1,1,HLTH,1,1,,,
+Consumable,cinnamon bun,A warm, toasty cinnamon bun This would go great with a cup of coffee.,1,1,1,HLTH,2,1,,,
+Consumable,cup of coffee,A hot, dark roast coffee This would go great with a cinnamon bun.,1,1,1,HLTH,2,1,,,
+General,soap and water,Fighting monsters all day tends to make one stink *cough cough*.,1,2,1,HLTH,2,1,,,
+Consumable,pouch of vittles,Always have snacks prepared for a long journey.,1,2,2,HLTH,3,1,,,
+Consumable,bad milk,Definitely gone sour, this should be poured out.,1,2,1,HLTH,-1,1,DAM,1,1
+Potion,potion of the lion,This heavy, yellow liquid smells strongly of cinnamon and liquor.,1,5,1,HLTH,3,1,WIT,2,3
+Consumable,dream plant,This colorful, but pungent flower can only be found at night.,1,3,1,ARC,2,1,HASTE,-1,1
+Gem,vanadinite,Sparks crackle on the surface of this azure crystal.,1,5,1,ARC,1,1,,,
+Consumable,nightshade,These violet pedals have violent ends.,1,2,1,DEATH,0,1,,,
+Consumable,kuri kuri leaves,Chewing a handful of these icey leaves immediately sharpens the senses.,1,2,1,INTL,2,1,,,
+Gem,calcite,A thick, magical fogs swirls inside this verdant crystal when inspected closely.,1,2,1,INTL,3,1,,,
+General,torch,Bring light into the darkness and avoid an unseen end.,1,2,1,HASTE,2,1,,,
+General,news pamphlet,Catch up on current events.,1,1,1,HASTE,1,1,,,
+General,fresh socks,The most underrated adventuring neccesity.,1,4,1,CON,3,1,,,
+Consumable,dragon tails,This broad, jungle green plant has powerful anti-inflamitory properties.,1,2,1,CON,1,1,,,
